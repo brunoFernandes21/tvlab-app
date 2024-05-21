@@ -1,13 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Header from "./components/Header"
+import { Routes, Route } from "react-router-dom";
+import Homepage from "./pages/Homepage";
+import NotFound from "./pages/NotFound";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>TVLab</h1>
+    <Header/>
+    <Routes>
+      <Route path="/" element={<Homepage/>}/>
+      <Route path="*" element={<NotFound/>}/>
+    </Routes>
+
     </>
   )
 }
