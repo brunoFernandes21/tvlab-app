@@ -13,7 +13,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="border h-20 flex flex-1 items-center justify-between lg:justify-center gap-10 lg:gap-14 overflow-hidden">
           <NavLink to="/" className="flex items-center flex-shrink-0">
-            <span className="text-xl md:text-3xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 transition ease-in-out duration-500">
+            <span className="text-2xl md:text-3xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 transition ease-in-out duration-500">
               TVSync
             </span>
           </NavLink>
@@ -26,14 +26,14 @@ const Header = () => {
           <div className="flex gap-2 lg:gap-4 items-center">
             <NavLink to="/register" className="text-gray-500 text-sm transition ease-in-out duration-500 hover:text-gray-100 hidden md:block">Register</NavLink>
             <NavLink to="/login" className="text-gray-500 text-sm transition ease-in-out duration-500 hover:text-gray-100 flex items-center gap-1">
-              <FaUser className="md:hidden text-xl"/>
+              <FaUser className="md:hidden text-xl text-slate-100"/>
               <span className="hidden md:block">Login</span>
               </NavLink>
             <NavLink to="/login" className="text-gray-500 text-sm transition ease-in-out duration-500 hover:text-gray-100">
-            <IoLogInOutline className="md:hidden text-2xl"/>
+            <IoLogInOutline className="md:hidden text-2xl text-slate-100"/>
             <span className="hidden md:block">Log out</span>
             </NavLink>
-            <IoMdMenu className="md:hidden text-gray-500 text-2xl transition ease-in-out duration-500 hover:text-gray-100"/>
+            <IoMdMenu className="md:hidden text-slate-100 text-2xl transition ease-in-out duration-500 hover:text-gray-100"/>
           </div>
         </div>
       </div>
