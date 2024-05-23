@@ -7,14 +7,19 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  background-color: black;
+  
 }
 
 body {
+  background-color: black;
   font-family: Poppins;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  color: white;
+}
+
+.swiper-button-next, .swiper-button-prev {
   color: white;
 }
 

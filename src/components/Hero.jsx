@@ -1,13 +1,95 @@
-import React from 'react'
+// import function to register Swiper custom elements
+import { register } from "swiper/element/bundle";
+import { Link } from "react-router-dom";
+// register Swiper custom elements
+register();
 
+// bg-[url('./public/showcase-bg.jpg')]
+//autoplay
 const Hero = () => {
   return (
-    <section className='py-4 min-h-52 overflow-hidden mb-10'>
-        <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 border h-[450px]'>
-            <p>Hero section. Movie cards will display here as carousel</p>
-        </div>
-    </section>
-  )
-}
+    <section className=" bg-[url('./public/carousel-2.jpg')] bg-no-repeat bg-cover z-0">
+      <div className="bg-black bg-opacity-80 w-full min-h-52 px-2 md:px-6 lg:px-8 ">
+        <h1 className="text-xl md:text-4xl font-bold text-center py-4 md:py-8 lg:py-10">
+          Now Playing
+        </h1>
+        <swiper-container
+          style={{
+            "--swiper-navigation-color": "#fff",
+            "--swiper-pagination-color": "#000",
+          }}
+          scrollbar="true"
+          space-between={10}
+          speed="500"
+          loop="true"
+          css-mode="true"
+          navigation="true"
+          pagination="false"
+          draggable="true"
+          //   className="flex pb-4 md:py-6"
+          //   autoplay
+          breakpoints={JSON.stringify({
+            640: {
+              slidesPerView: 1,
+              // spaceBetween: 10,
+            },
 
-export default Hero
+            768: {
+              slidesPerView: 3,
+              // spaceBetween: 10,
+            },
+
+            1024: {
+              slidesPerView: 4,
+              // spaceBetween: 10,
+            },
+          })}
+        >
+          <swiper-slide>
+            <div className="bg-black">
+              <Link className="flex justify-center flex-col items-center pb-2 gap-4">
+                <img src="/public/poster.jpeg" alt="" />
+                <p>RATE 10/10</p>
+              </Link>
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+          <div className="bg-black">
+              <Link className="flex justify-center flex-col items-center pb-2 gap-4">
+                <img src="/public/poster.jpeg" alt="" />
+                <p>RATE 10/10</p>
+              </Link>
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+          <div className="bg-black">
+              <Link className="flex justify-center flex-col items-center pb-2 gap-4">
+                <img src="/public/poster.jpeg" alt="" />
+                <p>RATE 10/10</p>
+              </Link>
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+          <div className=" bg-black">
+              <Link className="flex justify-center flex-col items-center pb-2 gap-4">
+                <img src="/public/poster.jpeg" alt="" />
+                <p>RATE 10/10</p>
+              </Link>
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+          <div className=" bg-black">
+              <Link className="flex justify-center flex-col items-center pb-2 gap-4">
+                <img src="/public/poster.jpeg" alt="" />
+                <p>RATE 10/10</p>
+              </Link>
+            </div>
+          </swiper-slide>
+          ...
+        </swiper-container>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
