@@ -1,10 +1,20 @@
-import React from "react";
-import { selectAllPopularMovies } from "./moviesSlice";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { selectAllPopularMovies, selectStatus, fetchMovies } from "./moviesSlice";
+import { useSelector, useDispatch } from "react-redux";
 import MovieCard from "./MovieCard";
 
 const PopularMovies = () => {
   const PopularMovies = useSelector(selectAllPopularMovies);
+  const movieStatus = useSelector(selectStatus)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(movieStatus === "idle") {
+      dispatch(fetchMovies())
+    }
+  },[])
+
+  // console.log(PopularMovies);
   const displayPopularMovies = PopularMovies.map((movie) => (
       <MovieCard key={movie.id} movie={movie} />
   ));

@@ -4,7 +4,6 @@ import MovieCard from "./MovieCard";
 
 const Movies = () => {
   const movies = useSelector(selectAllMovies);
-
   const displayMovies = movies.map((movie) => (
     <MovieCard key={movie.id} movie={movie} />
   ));
