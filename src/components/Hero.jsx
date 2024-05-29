@@ -22,7 +22,7 @@ const Hero = () => {
 
   const nowPlaying = nowPlayingMovies.map((movie) => (
     <swiper-slide key={movie.id}>
-      <MovieCard type={movie}/>
+      <MovieCard movie={movie}/>
     </swiper-slide>
   ))
   return (
@@ -59,8 +59,8 @@ const Hero = () => {
               // spaceBetween: 10,
             },
 
-            1024: {
-              slidesPerView: 4,
+            1574: {
+              slidesPerView: 5,
               // spaceBetween: 20,
             },
           })}

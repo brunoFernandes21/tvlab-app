@@ -19,7 +19,7 @@ const TvShows = () => {
     dispatch(fetchShows());
   }, []);
 
-  const content = shows.map((show) => <ShowCard key={show.id} type={show} />);
+  const content = shows.map((show) => <ShowCard key={show.id} movie={show} />);
 
   return (
     <section className="mt-10 pb-10 ">

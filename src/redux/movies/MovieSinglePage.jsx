@@ -26,8 +26,7 @@ const MovieSinglePage = () => {
         className="container mx-auto mb-20"
       >
         <div className=" h-screen bg-black bg-opacity-70 py-10 md:py-20 px-2 md:px-6 lg:px-8 grid grid-col-1 gap-4 md:grid-cols-2">
-          <div 
-          className="w-[250px] mx-auto lg:w-[350px]"
+          <div className="w-[250px] mx-auto lg:w-[350px]"
           >
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
