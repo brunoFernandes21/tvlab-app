@@ -6,7 +6,7 @@ register();
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchNowPlayingMovies, selectAllNowPlayingMovies, selectStatus, selectError } from "../redux/movies/moviesSlice";
-import MovieCard from "./ContentCard";
+import MovieCard from "./NowPlayingCard";
 import Spinner from "./Spinner";
 // bg-[url('./public/showcase-bg.jpg')]
 //autoplay
