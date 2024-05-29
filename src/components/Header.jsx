@@ -24,14 +24,14 @@ const Header = () => {
             <NavLink to="/favourites" className={linkClass}>Favourites</NavLink>
           </div>
           <div className="flex gap-2 lg:gap-4 items-center">
-            <NavLink to="/register" className="text-gray-500 text-sm transition ease-in-out duration-500 hover:text-gray-100 hidden md:block">Register</NavLink>
-            <NavLink to="/login" className="text-gray-500 text-sm transition ease-in-out duration-500 hover:text-gray-100 flex items-center gap-1">
+            <NavLink to="/register" className="text-gray-500 text-sm lg:text-lg transition ease-in-out duration-500 hover:text-gray-100 hidden md:block">Register</NavLink>
+            <NavLink to="/login" className="text-gray-500 text-sm lg:text-lg transition ease-in-out duration-500 hover:text-gray-100 flex items-center gap-1">
               <FaUser className="md:hidden text-xl text-slate-100"/>
               <span className="hidden md:block">Login</span>
               </NavLink>
             <NavLink to="/login" className="text-gray-500 text-sm transition ease-in-out duration-500 hover:text-gray-100">
             <IoLogInOutline className="md:hidden text-2xl text-slate-100"/>
-            <span className="hidden md:block">Log out</span>
+            <span className="hidden md:block lg:text-lg">Log out</span>
             </NavLink>
             <IoMdMenu className="md:hidden text-slate-100 text-2xl transition ease-in-out duration-500 hover:text-gray-100"/>
           </div>
