@@ -22,7 +22,7 @@ const Hero = () => {
 
   const nowPlaying = nowPlayingMovies.map((movie) => (
     <swiper-slide key={movie.id}>
-      <MovieCard movie={movie}/>
+      <MovieCard type={movie}/>
     </swiper-slide>
   ))
   return (
@@ -37,7 +37,7 @@ const Hero = () => {
             "--swiper-pagination-color": "#000",
           }}
           scrollbar="true"
-          space-between={10}
+          space-between={20}
           speed="500"
           css-mode="true"
           navigation="true"
@@ -61,7 +61,7 @@ const Hero = () => {
 
             1024: {
               slidesPerView: 4,
-              // spaceBetween: 10,
+              // spaceBetween: 20,
             },
           })}
         >

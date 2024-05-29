@@ -14,7 +14,6 @@ const initialState = {
 
 
 /*****************************************FETCH MOVIES ****************************/
-//ENDPOINT FOR MOVIES
 
 const moviesURL = `https://api.themoviedb.org/3/discover/movie?${import.meta.env.VITE_REACT_APP_API_KEY}`
 const moviesOptions =  {
@@ -22,7 +21,6 @@ const moviesOptions =  {
   url: moviesURL,
   headers: {
     accept: 'application/json',
-
   }
 };
 
@@ -53,7 +51,6 @@ export const fetchMovies = createAsyncThunk("movies/fetchMovies", async() => {
 // })
 
 /********************************** FETCH NOW PLAYING MOVIES *****************************/
-//ENDPOINT FOR POPULAR MOVIES
  const nowPlayingMoviesURL = `https://api.themoviedb.org/3/movie/now_playing?${import.meta.env.VITE_REACT_APP_API_KEY}`
 const nowPlayingOptions = {
   method: 'GET',

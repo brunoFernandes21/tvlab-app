@@ -18,8 +18,8 @@ const Movies = () => {
   useEffect(() => {
     dispatch(fetchMovies());
   }, []);
-  const displayMovies = movies.map((movie) => (
-    <MovieCard key={movie.id} movie={movie} />
+  const content = movies.map((movie) => (
+    <MovieCard key={movie.id} type={movie} />
   ));
 
   return (
@@ -27,13 +27,13 @@ const Movies = () => {
       <h1 className="text-xl md:text-4xl lg:text-5xl font-bold text-center">
         All Movies
       </h1>
-      <div className="max-w-7xl m-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 md:mt-8 lg:mt-10 px-2 md:px-6 lg:px-8">
+      <div className="container m-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 md:mt-8 lg:mt-10 px-2 md:px-6 lg:px-8">
         {movieStatus === "loading" && (
           <Spinner text="Loading" loading={movieStatus} />
         )}
-        {movieStatus === "succeeded" && displayMovies}
+        {movieStatus === "succeeded" && content}
         {movieStatus === "failed" && (
-          <p className="text-xl text-center">Unable to find</p>
+          <p className="text-xl text-center">Unable to find movies</p>
         )}
       </div>
     </section>
