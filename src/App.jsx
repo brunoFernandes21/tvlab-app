@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import NotFound from "./pages/NotFound";
 import Movies from "./redux/movies/Movies";
+import MovieSinglePage from "./redux/movies/MovieSinglePage";
+
 import TvShow from "./redux/tvshows/TvShows"
 function App() {
 
@@ -12,6 +14,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Homepage/>}/>
       <Route path="/movies" element={<Movies/>}/>
+      <Route path="/movies/:jobId" element={<MovieSinglePage/>}/>
       <Route path="/tv-shows" element={<TvShow/>}/>
       <Route path="*" element={<NotFound/>}/>
 
