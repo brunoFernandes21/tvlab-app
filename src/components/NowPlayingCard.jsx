@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 
 const NowPlayingCard = ({ movie }) => {
   let movieTitle = movie.title.length >= 20 ? movie.title.substring(0, 30) + "..." : movie.title
-  console.log(movieTitle);
 
   return (
-    <section className=" bg-slate-900 rounded-lg transition-all ease-in-out duration-500 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:shadow-sky-500 hover:scale-x-105 border border-slate-500">
+    <section className=" bg-slate-900 rounded-lg transition-all ease-in-out duration-500 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:shadow-sky-500 hover:scale-x-105 hover:border-4 hover:border-slate-300">
       <div >
         <Link to={`/movies/${movie.id}`}>
           <div>
@@ -18,9 +17,9 @@ const NowPlayingCard = ({ movie }) => {
           </div>
           <div className="border border-slate-600 my-4"></div>
           <div className="px-2 mt-2">
-            <h className="text-lg">
+            <h1 className="text-lg">
               <strong>{movieTitle}</strong>
-            </h>
+            </h1>
             <p className="py-2 lg:text-lg font-extralight">
               <strong>Release Date: {movie.release_date}</strong>
             </p>

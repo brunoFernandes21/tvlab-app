@@ -8,9 +8,7 @@ const initialState = {
 };
 
 /*****************************************FETCH MOVIES ****************************/
-const showsURL = `https://api.themoviedb.org/3/discover/tv?${
-  import.meta.env.VITE_REACT_APP_API_KEY
-}`;
+const showsURL = `https://api.themoviedb.org/3/discover/tv?${import.meta.env.VITE_REACT_APP_API_KEY}`;
 const showsOptions = {
   method: "GET",
   url: showsURL,
@@ -22,6 +20,7 @@ const showsOptions = {
 export const fetchShows = createAsyncThunk("shows/fetchShows", async() => {
     const response = await axios.request(showsOptions)
     const data = await response.data
+    console.log(data.result);
     return data.results
 })
 export const showsSlice = createSlice({

@@ -22,7 +22,7 @@ const MovieCard = ({ movie }) => {
     }
   }
   return (
-    <section className=" bg-slate-900 rounded-lg transition-all ease-in-out duration-500 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:shadow-sky-500 hover:scale-105 border border-slate-500">
+    <section className=" bg-slate-900 rounded-lg transition-all ease-in-out duration-500 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:shadow-sky-500 hover:scale-105 hover:border-4 hover:border-slate-300">
       <div>
         <Link to={`/movies/${movie.id}`}>
           <div className="mb-4 ">

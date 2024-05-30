@@ -126,6 +126,7 @@ export const selectAllMovies = (state) => state.movies.movies;
 // export const selectAllPopularMovies = (state) => state.movies.popularMovies;
 export const selectAllNowPlayingMovies = (state) => state.movies.nowPlayingMovies;
 export const selectMovieById = (state, jobId) => state.movies.movies.find((movie) =>  movie.id === jobId)
+export const selectNowPlayingMovieById = (state, jobId) => state.movies.nowPlayingMovies.find((movie) =>  movie.id === jobId)
 // export const { } = moviesSlice.actions;
 
 export default moviesSlice.reducer;
