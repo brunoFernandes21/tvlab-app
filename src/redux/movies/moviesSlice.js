@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"
-// console.log(import.meta.env.VITE_REACT_APP_API_KEY)
 const initialState = {
     movies: [],
     // popularMovies: [],
@@ -67,16 +66,18 @@ export const fetchNowPlayingMovies = createAsyncThunk("movies/fetchNowPlayingMov
 })
 
 
-
-
-
-
-
-
 export const moviesSlice = createSlice({
     name: "movies",
     initialState,
     reducers: {
+      sortBy: (state, action) => {
+        console.log(action.payload);
+        const payload = action.payload
+        const sortedMovies = [...state.movies].sort((a, b) => {
+          return a[payload] > b[payload] ? 0 : -1
+        })
+        return {...state, movies: sortedMovies}
+      }
 
     }, 
     extraReducers(builder) {
@@ -127,6 +128,6 @@ export const selectAllMovies = (state) => state.movies.movies;
 export const selectAllNowPlayingMovies = (state) => state.movies.nowPlayingMovies;
 export const selectMovieById = (state, jobId) => state.movies.movies.find((movie) =>  movie.id === jobId)
 export const selectNowPlayingMovieById = (state, jobId) => state.movies.nowPlayingMovies.find((movie) =>  movie.id === jobId)
-// export const { } = moviesSlice.actions;
+export const { sortBy } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

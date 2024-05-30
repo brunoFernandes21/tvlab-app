@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { IoLogInOutline } from "react-icons/io5";

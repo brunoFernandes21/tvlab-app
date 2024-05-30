@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
   let movieTitle 
-  // = movie.title >= 20 ? movie.title.substring(0, 30) + "..." : movie.title
-
   let date;
   if(movie.title){
     date = movie.release_date

@@ -5,7 +5,7 @@ import Spinner from "../../components/Spinner";
 import MovieCard from "../../components/ContentCard";
 
 const PopularMovies = () => {
-  const PopularMovies = useSelector(selectAllMovies);
+  const popularMovies = useSelector(selectAllMovies);
   const dispatch = useDispatch()
   const movieStatus = useSelector(selectStatus)
   const movieError = useSelector(selectError)
@@ -13,8 +13,11 @@ const PopularMovies = () => {
   useEffect(() => {
       dispatch(fetchMovies())
   },[])
+  const sortedMovies = [...popularMovies].sort((a, b) => {
+    return a["vote_count"] > b["vote_count"] ? -1 : 0
+  }) 
 
-  const displayPopularMovies = PopularMovies.map((movie) => (
+  const displayPopularMovies = sortedMovies.map((movie) => (
       <MovieCard key={movie.id} movie={movie} />
   ));
   return (

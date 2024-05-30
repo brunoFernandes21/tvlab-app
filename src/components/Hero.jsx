@@ -1,15 +1,10 @@
-// import function to register Swiper custom elements
 import { register } from "swiper/element/bundle";
-import { Link } from "react-router-dom";
-// register Swiper custom elements
 register();
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchNowPlayingMovies, selectAllNowPlayingMovies, selectStatus, selectError } from "../redux/movies/moviesSlice";
 import MovieCard from "./NowPlayingCard";
 import Spinner from "./Spinner";
-// bg-[url('./public/showcase-bg.jpg')]
-//autoplay
 const Hero = () => {
   const dispatch = useDispatch()
   const nowPlayingMovies = useSelector(selectAllNowPlayingMovies)
