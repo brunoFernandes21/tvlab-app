@@ -2,15 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"
 const initialState = {
     movies: [],
-    // popularMovies: [],
     nowPlayingMovies: [],
     status: "idle",
     error: null
 }
-
-
-
-
 
 /*****************************************FETCH MOVIES ****************************/
 
@@ -26,28 +21,8 @@ const moviesOptions =  {
 export const fetchMovies = createAsyncThunk("movies/fetchMovies", async() => {
   const response = await axios.request(moviesOptions)
   const data = await response.data
-  // console.log(data.results);
   return data.results
 })
-
-
-
-/*****************************************FETCH POPULAR MOVIES ****************************/
-//ENDPOINT FOR POPULAR MOVIES
-// const popularMoviesURL = "https://api.themoviedb.org/3/movie/popular?api_key=1420fc80c54c2279c98e249a7fd941cc"
-// const popularMoviesOptions = {
-//     method: 'GET',
-//     url: popularMoviesURL,
-//     headers: {
-//       accept: 'application/json',
-//   };
-
-// export const fetchPopularMovies = createAsyncThunk("movies/fetchPopularMovies", async() => {
-//     const response = await axios.request(popularMoviesOptions)
-//     const data = await response.data
-//     // console.log(data.results);
-//     return data.results
-// })
 
 /********************************** FETCH NOW PLAYING MOVIES *****************************/
  const nowPlayingMoviesURL = `https://api.themoviedb.org/3/movie/now_playing?${import.meta.env.VITE_REACT_APP_API_KEY}`
@@ -70,8 +45,7 @@ export const moviesSlice = createSlice({
     name: "movies",
     initialState,
     reducers: {
-      sortBy: (state, action) => {
-        console.log(action.payload);
+      sortMovies: (state, action) => {
         const payload = action.payload
         const sortedMovies = [...state.movies].sort((a, b) => {
           return a[payload] > b[payload] ? 0 : -1
@@ -94,18 +68,6 @@ export const moviesSlice = createSlice({
         state.status = "failed"
         state.error = action.error.message
       })
-      // .addCase(fetchPopularMovies.pending, (state, action) => {
-      //   state.status = "loading"
-      // })
-      // .addCase(fetchPopularMovies.fulfilled, (state, action) => {
-      //   state.status = "succeeded"
-      //   const popMovies = action.payload
-      //   state.popularMovies = [...popMovies]
-      // })
-      // .addCase(fetchPopularMovies.rejected, (state, action) => {
-      //   state.status = "failed"
-      //   state.error = action.error.message
-      // })
       .addCase(fetchNowPlayingMovies.pending, (state, action) => {
         state.status = "loading"
       })
@@ -124,10 +86,9 @@ export const moviesSlice = createSlice({
 export const selectStatus = (state) => state.movies.status;
 export const selectError = (state) => state.movies.error;
 export const selectAllMovies = (state) => state.movies.movies;
-// export const selectAllPopularMovies = (state) => state.movies.popularMovies;
 export const selectAllNowPlayingMovies = (state) => state.movies.nowPlayingMovies;
 export const selectMovieById = (state, jobId) => state.movies.movies.find((movie) =>  movie.id === jobId)
 export const selectNowPlayingMovieById = (state, jobId) => state.movies.nowPlayingMovies.find((movie) =>  movie.id === jobId)
-export const { sortBy } = moviesSlice.actions;
+export const { sortMovies } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

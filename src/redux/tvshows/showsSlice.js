@@ -20,13 +20,20 @@ const showsOptions = {
 export const fetchShows = createAsyncThunk("shows/fetchShows", async() => {
     const response = await axios.request(showsOptions)
     const data = await response.data
-    console.log(data.result);
     return data.results
 })
 export const showsSlice = createSlice({
   name: "shows",
   initialState,
-  reducers: {},
+  reducers: {
+    sortShows: (state, action) => {
+      const payload = action.payload
+      const sortedMovies = [...state.shows].sort((a, b) => {
+        return a[payload] > b[payload] ? 0 : -1
+      })
+      return {...state, shows: sortedMovies}
+    }
+  },
   extraReducers(builder) {
     builder
     .addCase(fetchShows.pending, (state, action) => {
@@ -47,5 +54,5 @@ export const showsSlice = createSlice({
 export const selectStatus = (state) => state.shows.status;
 export const selectError = (state) => state.shows.error;
 export const selectAllShows = (state) => state.shows.shows;
-
+export const { sortShows } = showsSlice.actions;
 export default showsSlice.reducer;
