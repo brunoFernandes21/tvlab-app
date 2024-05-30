@@ -7,9 +7,9 @@ const MovieSinglePage = () => {
   const { jobId } = useParams();
   const movie = useSelector((state) => selectMovieById(state, Number(jobId)));
   const NowPlayingMovie = useSelector((state) => selectNowPlayingMovieById(state, Number(jobId)));
+  //if movie is not found in the movies array, find it in the nowPlayingMovies array and use it instead
   const singleMovie = movie ? movie : NowPlayingMovie
   const dispatch = useDispatch();
-  console.log(singleMovie);
 
   useEffect(() => {
     dispatch(fetchMovies());
