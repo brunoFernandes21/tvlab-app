@@ -87,8 +87,8 @@ export const selectStatus = (state) => state.movies.status;
 export const selectError = (state) => state.movies.error;
 export const selectAllMovies = (state) => state.movies.movies;
 export const selectAllNowPlayingMovies = (state) => state.movies.nowPlayingMovies;
-export const selectMovieById = (state, jobId) => state.movies.movies.find((movie) =>  movie.id === jobId)
-export const selectNowPlayingMovieById = (state, jobId) => state.movies.nowPlayingMovies.find((movie) =>  movie.id === jobId)
+export const selectMovieById = (state, movieId) => state.movies.movies.find((movie) =>  movie.id === movieId)
+export const selectNowPlayingMovieById = (state, movieId) => state.movies.nowPlayingMovies.find((movie) =>  movie.id === movieId)
 export const { sortMovies } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

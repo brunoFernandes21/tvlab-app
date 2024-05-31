@@ -1,31 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ prop }) => {
   let movieTitle 
   let date;
-  if(movie.title){
+  const movie = prop.title
+  const show = prop.name
+  if(movie){
     date = movie.release_date
-    if(movie.title.length >= 30) {
-      movieTitle = movie.title.substring(0, 35) + "..."
+    if(movie.length >= 30) {
+      movieTitle = movie.substring(0, 35) + "..."
     } else {
-      movieTitle = movie.title
+      movieTitle = movie
     }
-  } else if(movie.name) {
-    date = movie.first_air_date
-    if(movie.name.length >= 30) {
-      movieTitle = movie.name.substring(0, 35) + "..."
+  } else if(show) {
+    date = show.first_air_date
+    if(show.length >= 30) {
+      movieTitle = show.substring(0, 35) + "..."
     } else {
-      movieTitle = movie.name
+      movieTitle = show
     }
   }
   return (
     <section className=" bg-slate-900 rounded-lg transition-all ease-in-out duration-500 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:shadow-sky-500 hover:scale-105 hover:border-4 hover:border-slate-300">
       <div>
-        <Link to={`/movies/${movie.id}`}>
+        <Link to={movie ? `/movies/${prop.id}` : `/tv-shows/${prop.id}`}>
           <div className="mb-4 ">
             <img
-              src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+              src={`https://image.tmdb.org/t/p/original/${prop.poster_path}`}
               alt="Image not available"
               className="rounded-md"
             />
@@ -39,7 +41,7 @@ const MovieCard = ({ movie }) => {
               <strong>Release Date:</strong> {date}
             </p>
             <p className="pb-2 lg:text-lg font-extralight">
-              <strong>Vote: {movie.vote_count}</strong>
+              <strong>Vote: {prop.vote_count}</strong>
             </p>
           </div>
         </Link>

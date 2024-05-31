@@ -18,7 +18,7 @@ const PopularMovies = () => {
   }) 
 
   const displayPopularMovies = sortedMovies.map((movie) => (
-      <MovieCard key={movie.id} movie={movie} />
+      <MovieCard key={movie.id} prop={movie} />
   ));
   return (
     <section className="mt-10">

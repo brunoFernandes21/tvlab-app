@@ -54,5 +54,6 @@ export const showsSlice = createSlice({
 export const selectStatus = (state) => state.shows.status;
 export const selectError = (state) => state.shows.error;
 export const selectAllShows = (state) => state.shows.shows;
+export const selectShowById = (state, showId) => state.shows.shows.find((show) =>  show.id === showId)
 export const { sortShows } = showsSlice.actions;
 export default showsSlice.reducer;

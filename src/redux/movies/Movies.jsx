@@ -20,7 +20,7 @@ const Movies = () => {
     dispatch(fetchMovies());
   }, []);
   const content = movies.map((movie) => (
-    <MovieCard key={movie.id} movie={movie} />
+    <MovieCard key={movie.id} prop={movie} />
   ));
 
   return (
