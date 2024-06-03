@@ -17,7 +17,7 @@ const ShowSinglePage = () => {
 
   if (!show) {
     return (
-      <section className="flex items-center justify-center p-16 bg-black h-[92vh] dark:bg-slate-800 dark:text-white">
+      <section className="flex items-center justify-center p-16 bg-black h-screen text-white">
         <div className="flex flex-col text-center gap-6 max-w-md">
           <FaExclamationTriangle className="text-yellow-400 text-6xl mx-auto" />
 
@@ -51,7 +51,7 @@ const ShowSinglePage = () => {
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
-          className="container mx-auto mb-20"
+          className="container mx-auto"
         >
           <div className=" bg-black bg-opacity-70">
             <section className="py-6 px-6">
