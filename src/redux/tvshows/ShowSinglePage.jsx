@@ -17,7 +17,7 @@ const ShowSinglePage = () => {
 
   if (!show) {
     return (
-      <section className="flex items-center justify-center p-16 bg-black h-screen text-white">
+      <section className="flex items-center justify-center p-16 bg-black">
         <div className="flex flex-col text-center gap-6 max-w-md">
           <FaExclamationTriangle className="text-yellow-400 text-6xl mx-auto" />
 
