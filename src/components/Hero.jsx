@@ -22,10 +22,12 @@ const Hero = () => {
   ))
   return (
     <section className=" bg-[url('/carousel-2.jpg')] bg-no-repeat bg-cover z-0 min-h-52">
+      {movieStatus !== "loading" && movieStatus !== "failed" && (
       <div className="bg-black bg-opacity-80 w-full h-full px-2 md:px-6 lg:px-8 ">
         <h1 className="text-xl md:text-4xl lg:text-5xl font-bold text-center py-4 md:py-8 lg:py-10">
           Now Playing
         </h1>
+
         <swiper-container
           style={{
             "--swiper-navigation-color": "#fff",
@@ -65,6 +67,7 @@ const Hero = () => {
           {movieStatus === "failed" && (<p className="text-xl mx-auto">Unable to find movies</p>)}
         </swiper-container>
       </div>
+      )}
     </section>
   );
 };

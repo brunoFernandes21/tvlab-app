@@ -20,14 +20,14 @@ const MovieCard = ({ prop }) => {
           </div>
           <div className="border border-slate-600 my-4"></div>
           <div className="pb-2 px-2 truncate">
-            <h1 className="text-lg lg:text-lg truncate">
+            <h1 className="lg:text-lg truncate">
               <strong>{title}</strong>
             </h1>
-            <p className="py-2 lg:text-lg font-extralight">
+            <p className="py-2 text-sm">
               <strong>Release Date:</strong> {date}
             </p>
-            <p className="lg:text-lg font-extralight">
-              <strong>Vote: {prop.vote_count}</strong>
+            <p className="pb-2 text-sm">
+              <strong>Vote:</strong> {prop.vote_count}
             </p>
           </div>
         </Link>
