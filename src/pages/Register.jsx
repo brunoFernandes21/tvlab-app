@@ -53,6 +53,7 @@ const Register = ({ setCurrentUser, setUserName }) => {
       const result = await signInWithPopup(auth, provider);
       navigate("/");
       const user = result.user;
+      console.log(user, "firebase user");
       await setDoc(doc(db, "users", `${user.uid}`), {
         userId: user.uid,
         name: user.displayName,
@@ -60,7 +61,7 @@ const Register = ({ setCurrentUser, setUserName }) => {
         photoURL: user.photoURL,
       });
       setCurrentUser(user);
-      setUserName(userName)
+      setUserName(user.displayName)
       setLoading(false);
     } catch (error) {
       setDbError("Unable to sign in");

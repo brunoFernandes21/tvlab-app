@@ -5,7 +5,7 @@ const LandingPage = () => {
   return (
     <main>
       <section className="container m-auto my-6 md:my-8 lg:my-10 px-2 md:px-6 lg:px-8">
-        <div className="md:max-w-5xl border-8 border-dotted rounded-lg p-4 md:p-8 text-center mx-auto flex flex-col items-center justify-centerborder-gray-600 ">
+        <div className="md:max-w-5xl border-8 rounded-lg p-4 md:p-8 text-center mx-auto flex flex-col items-center justify-centerborder-gray-600 ">
           <h1 className="text-2xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 mb-4">Welcome to TVSync</h1>
           <p className="my-4 md:text-xl md:w-2/3">
             Dive into a world of entertainment with our curated collection of
@@ -16,7 +16,7 @@ const LandingPage = () => {
             Your next favourite show awaits!
           </p>
         </div>
-        <div className="max-w-xl border-8 border-dotted rounded-lg mt-8 md:mt-10 p-4 md:p-8 mx-auto flex flex-col items-center justify-center text-center gap-3 border-x-red-500 border-y-yellow-500">
+        <div className="max-w-xl border-8 rounded-lg mt-8 md:mt-10 p-4 md:p-8 mx-auto flex flex-col items-center justify-center text-center gap-3 border-x-red-500 border-y-yellow-500">
             <p className="md:text-xl">Register below to checkout what everyone is watching.</p>
             <Link to="/register" className="block px-6 py-2 md:px-10 md:py-3 rounded-md bg-transparent bg-gradient-to-r from-pink-500 to-yellow-500 md:text-lg">Register</Link>
         </div>

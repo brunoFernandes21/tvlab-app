@@ -25,6 +25,7 @@ function App() {
     setCurrentUser(null);
     setUserName(null);
   };
+  console.log(userName);
   return (
     <>
       <Header username={userName} currentUser={currentUser} logout={logout} />

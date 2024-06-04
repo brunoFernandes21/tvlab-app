@@ -9,16 +9,18 @@ const Header = ({ currentUser, username, logout }) => {
       ? "md:text-md lg:text-xl uppercase transition ease-in-out duration-500 text-transparent hover:text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 hover:from-pink-500 hover:to-yellow-500"
       : "md:text-md lg:text-xl uppercase transition ease-in-out duration-500 text-gray-500 hover:text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 hover:from-pink-500 hover:to-yellow-500";
   };
+  let nameArray = username ? username.split(" ") : null
+  let displayName = nameArray && nameArray.length > 1 ? nameArray[0] : username
   return (
     <nav className="sticky top-0 z-50 shadow-slate-500 bg-black">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
-        <div className="h-20 flex flex-1 items-center justify-between gap-10 lg:gap-14 overflow-hidden">
+        <div className="h-20 flex flex-1 items-center justify-between lg:justify-center gap-10 lg:gap-14 overflow-hidden">
           <NavLink to="/" className="flex items-center flex-shrink-0">
             <span className="text-2xl md:text-3xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 transition ease-in-out duration-500">
               TVSync
             </span>
           </NavLink>
-          <div className="md:flex md:gap-2 lg:gap-6 hidden ">
+          {currentUser && <div className="md:flex md:gap-2 lg:gap-6 hidden ">
             <NavLink to="/" className={linkClass}>
               Home
             </NavLink>
@@ -31,7 +33,7 @@ const Header = ({ currentUser, username, logout }) => {
             <NavLink to="/favourites" className={linkClass}>
               Favourites
             </NavLink>
-          </div>
+          </div>}
           <div className="flex gap-2 lg:gap-4 items-center">
             {!currentUser && (
               <NavLink
@@ -52,7 +54,7 @@ const Header = ({ currentUser, username, logout }) => {
                 <span className="hidden md:block">Login</span>
               </NavLink>
             )}
-            {username && <p className="text-slate-500">{username}</p>}
+            {username && <p className="text-slate-300 lg:text-lg">{displayName}</p>}
 
             {currentUser && (
               <NavLink
