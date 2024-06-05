@@ -51,24 +51,26 @@ const Register = ({ setCurrentUser, setUserName }) => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      navigate("/");
       const user = result.user;
-      console.log(user, "firebase user");
-      await setDoc(doc(db, "users", `${user.uid}`), {
-        userId: user.uid,
-        name: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-      });
-      setCurrentUser(user);
-      setUserName(user.displayName)
-      setLoading(false);
+      if (user) {
+        await setDoc(doc(db, "users", `${user.uid}`), {
+          userId: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        });
+        setCurrentUser(user);
+        setUserName(user.displayName);
+        setLoading(false);
+        navigate("/");
+      }
     } catch (error) {
       setDbError("Unable to sign in");
       setLoading(false);
     }
   };
 
+  // TODO: CREATE A UTILS FOLDER TO DO ALL THE AUTH CALLS
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userName = formData.username;
@@ -83,26 +85,29 @@ const Register = ({ setCurrentUser, setUserName }) => {
           email,
           password
         );
-        navigate("/");
         const user = userCredentials.user;
-        await updateProfile(auth.currentUser, {
-          displayName: userName,
-        });
-        setCurrentUser(user);
-        setUserName(userName)
-        setLoading(false);
-        await setDoc(doc(db, "users", `${user.uid}`), {
-          userId: user.uid,
-          name: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-        });
+
+        if (user) {
+          await updateProfile(auth.currentUser, {
+            displayName: userName,
+          });
+          await setDoc(doc(db, "users", `${user.uid}`), {
+            userId: user.uid,
+            name: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+          });
+          setCurrentUser(user);
+          setUserName(userName);
+          setLoading(false);
+          navigate("/");
+        }
       } catch (error) {
-        setDbError("Password should be at least 6 characters (weak-password).");
+        setDbError(error.message);
+        setLoading(false);
         setTimeout(() => {
           setDbError(null);
         }, 3000);
-        setLoading(false);
       }
     }
   };
@@ -165,7 +170,7 @@ const Register = ({ setCurrentUser, setUserName }) => {
               placeholder="Password"
               onChange={handleChange}
               required
-            //   pattern="^[a-zA-Z0-9_.-]{6, 50}$"
+              // pattern="^[a-zA-Z0-9_.-]{6,50}$"
               title="Password must be longer than 5 characters. Include a mix of letters, numbers"
             />
 
@@ -192,7 +197,7 @@ const Register = ({ setCurrentUser, setUserName }) => {
             <div className="mt-4 text-center">
               <p className="text-white">Already have an account?</p>
               <button className="form__btn py-3 w-[60%] mt-2 rounded-md bg-transparent bg-gradient-to-r from-pink-500 to-yellow-500 transition duration-150 ease-in text-center text-white">
-                <Link className="font-black" to="/login">
+                <Link to="/login">
                   <span> Login</span>
                 </Link>
               </button>

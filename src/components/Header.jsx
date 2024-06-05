@@ -54,7 +54,7 @@ const Header = ({ currentUser, username, logout }) => {
                 <span className="hidden md:block">Login</span>
               </NavLink>
             )}
-            {username && <p className="text-slate-300 lg:text-lg">{displayName}</p>}
+            {username && <p className="text-slate-300 lg:text-lg">Hi {displayName}</p>}
 
             {currentUser && (
               <NavLink

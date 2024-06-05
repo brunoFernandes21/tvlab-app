@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import ScrollToTop from "./components/ScrollToTop";
 import LandingPage from "./pages/LandingPage";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 import { useState } from "react";
 import { auth } from "./firebase/firebase.js";
 import { signOut } from "firebase/auth";
@@ -25,7 +26,7 @@ function App() {
     setCurrentUser(null);
     setUserName(null);
   };
-  console.log(userName);
+
   return (
     <>
       <Header username={userName} currentUser={currentUser} logout={logout} />
@@ -78,7 +79,7 @@ function App() {
             path="/landing-page"
             element={
               <UnProtectedRoutes user={currentUser}>
-                <LandingPage  />
+                <LandingPage />
               </UnProtectedRoutes>
             }
           />
@@ -89,6 +90,17 @@ function App() {
                 <Register
                   setCurrentUser={setCurrentUser}
                   setUserName={setUserName}
+                />
+              </UnProtectedRoutes>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <UnProtectedRoutes>
+                <Login
+                  setUserName={setUserName}
+                  setCurrentUser={setCurrentUser}
                 />
               </UnProtectedRoutes>
             }
