@@ -27,6 +27,9 @@ const MovieCard = ({ prop }) => {
               <strong>Release Date:</strong> {date}
             </p>
             <p className="pb-2 text-sm">
+              <strong>Populatiry:</strong> {prop.popularity}
+            </p>
+            <p className="pb-2 text-sm">
               <strong>Vote:</strong> {prop.vote_count}
             </p>
           </div>

@@ -12,18 +12,16 @@ const PopularMovies = () => {
   const movieError = useSelector(selectError)
   const [searchValue, setSearchValue] = useState("");
 
+
   useEffect(() => {
       dispatch(fetchMovies())
   },[])
-  const sortedMovies = [...popularMovies].sort((a, b) => {
-    return a["vote_count"] > b["vote_count"] ? -1 : 0
-  }) 
 
   const handleChange = (event) => {
     setSearchValue(event.target.value)
   }
 
-  const filteredMovies = sortedMovies.filter((movie) => (
+  const filteredMovies = popularMovies.filter((movie) => (
     movie.title.toLowerCase().includes(searchValue.toLocaleLowerCase())
   ))
   const displayPopularMovies = filteredMovies.map((movie) => (

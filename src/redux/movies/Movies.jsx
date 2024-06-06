@@ -19,7 +19,11 @@ const Movies = () => {
   useEffect(() => {
     dispatch(fetchMovies());
   }, []);
-  const content = movies.map((movie) => (
+
+    const sortedMovies = [...movies].sort((a, b) => {
+    return a["vote_count"] > b["vote_count"] ? -1 : 0
+  }) 
+  const content = sortedMovies.map((movie) => (
     <MovieCard key={movie.id} prop={movie} />
   ));
 
