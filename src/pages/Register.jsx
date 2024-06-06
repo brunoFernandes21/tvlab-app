@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { setDoc, doc } from "firebase/firestore";
 import { useState } from "react";
 
-const Register = ({ setCurrentUser, setUserName }) => {
+const Register = ({ setCurrentUser }) => {
   const [loading, setLoading] = useState(false);
   const [passwordError, setPasswordError] = useState(null);
   const [dbError, setDbError] = useState(null);
@@ -60,7 +60,6 @@ const Register = ({ setCurrentUser, setUserName }) => {
           photoURL: user.photoURL,
         });
         setCurrentUser(user);
-        setUserName(user.displayName);
         setLoading(false);
         navigate("/");
       }
@@ -98,7 +97,6 @@ const Register = ({ setCurrentUser, setUserName }) => {
             photoURL: user.photoURL,
           });
           setCurrentUser(user);
-          setUserName(userName);
           setLoading(false);
           navigate("/");
         }
@@ -113,7 +111,7 @@ const Register = ({ setCurrentUser, setUserName }) => {
   };
 
   return (
-    <section className="bg-black">
+    <section className="background min-h-screen">
       <div className="container m-auto max-w-lg py-10 md:py-24 px-5">
         <div className="form__section relative bg-slate-900 text-white px-4 py-8 mb-4 shadow-md shadow-white ">
           <div className="mb-4">

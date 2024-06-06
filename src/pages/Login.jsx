@@ -8,7 +8,7 @@ import {
 import { auth, db } from "../firebase/firebase.js";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = ({ setUserName, setCurrentUser }) => {
+const Login = ({ setCurrentUser }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -55,7 +55,6 @@ const Login = ({ setUserName, setCurrentUser }) => {
       const user = userCredential.user;
       if (user) {
         setCurrentUser(user);
-        setUserName(user.displayName)
         setLoading(false);
         navigate("/");
       }
@@ -70,7 +69,7 @@ const Login = ({ setUserName, setCurrentUser }) => {
   };
 
   return (
-    <section className="bg-black">
+    <section className="background min-h-screen ">
       <div className="container m-auto max-w-lg py-10 md:py-24 px-5">
         <div className="form__section relative bg-slate-900 text-white px-4 py-8 mb-4 shadow-md shadow-white ">
           <div className="mb-4">

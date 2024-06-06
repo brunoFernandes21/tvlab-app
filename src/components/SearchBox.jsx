@@ -14,7 +14,7 @@ const SearchBox = ({ handleChange, searchValue }) => {
           </div>
           <input
             type="search"
-            className="w-full p-4 ps-10 border-b text-white outline-none border-b-orange-300 bg-black focus:outline-none focus:border-orange-400 placeholder-gray-500  focus:text-orange-400"
+            className="w-full p-4 ps-10  border-b-2 outline-none rounded-none  border-transparent border-b-orange-300 bg-black focus:outline-none focus:border-b-orange-400 placeholder-gray-500  focus:text-orange-400 "
             placeholder="Filter movies by keyword"
             value={searchValue}
             onChange={handleChange}

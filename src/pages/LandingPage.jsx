@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
+  // className="h-screen flex items-center justify-center"
   return (
-    <main>
-      <section className="container m-auto my-6 md:my-8 lg:my-10 px-2 md:px-6 lg:px-8">
-        <div className="md:max-w-5xl border-8 rounded-lg p-4 md:p-8 text-center mx-auto flex flex-col items-center justify-centerborder-gray-600 ">
+    <main className="background min-h-screen pt-10 md:pt-20 lg:pt-40 ">
+      <section className="container m-auto my-6 md:my-8 lg:my-10 px-2 md:px-6 lg:px-8 ">
+        <div className="md:max-w-5xl lg:max-w-7xl border-8 rounded-lg p-4 md:p-8 text-center mx-auto flex flex-col items-center justify-centerborder-gray-600 ">
           <h1 className="text-2xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 mb-4">Welcome to TVSync</h1>
-          <p className="my-4 md:text-xl md:w-2/3">
+          <p className="my-4 md:text-xl md:w-2/3 lg:w-full">
             Dive into a world of entertainment with our curated collection of
             trending movies and tv shows.
           </p>

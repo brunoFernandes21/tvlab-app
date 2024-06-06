@@ -10,7 +10,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import LandingPage from "./pages/LandingPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import { useState } from "react";
+import MobileNavigation from "./components/MobileNavigation.jsx";
+import Background from "./components/Background.jsx";
+import { useEffect, useState } from "react";
 import { auth } from "./firebase/firebase.js";
 import { signOut } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
@@ -19,17 +21,31 @@ import { UnProtectedRoutes } from "../src/UnprotectedRoutes";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [userName, setUserName] = useState(null);
+  const [showNav, setShowNav] = useState(false);
+
+//prevent user from logging out after page refresh
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    if(currentUser) {
+      setCurrentUser(currentUser)
+    } else {
+      setCurrentUser(null)
+    }
+  }) 
+  return unsubscribe
+}, [currentUser])
 
   const logout = async () => {
     await signOut(auth);
     setCurrentUser(null);
-    setUserName(null);
   };
 
+
   return (
-    <>
-      <Header username={userName} currentUser={currentUser} logout={logout} />
+    <div className={`${showNav ? "show__nav" : ""}`}>
+    <Background showNav={showNav} />
+      <Header currentUser={currentUser} logout={logout} setShowNav={setShowNav}/>
+      {showNav && <MobileNavigation currentUser={currentUser} showNav={showNav} setShowNav={setShowNav} logout={logout}/>}
       <ScrollToTop>
         <Routes>
           {/* Protected Routes */}
@@ -89,7 +105,6 @@ function App() {
               <UnProtectedRoutes user={currentUser}>
                 <Register
                   setCurrentUser={setCurrentUser}
-                  setUserName={setUserName}
                 />
               </UnProtectedRoutes>
             }
@@ -99,7 +114,6 @@ function App() {
             element={
               <UnProtectedRoutes>
                 <Login
-                  setUserName={setUserName}
                   setCurrentUser={setCurrentUser}
                 />
               </UnProtectedRoutes>
@@ -109,7 +123,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ScrollToTop>
-    </>
+    </div>
   );
 }
 

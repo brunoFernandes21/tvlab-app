@@ -52,4 +52,67 @@ select {
 select {
   padding: 12px;
 }
+.background {
+  background: rgb(2,0,36);
+  background: linear-gradient(114deg, rgba(2,0,36,1) 0%, rgba(60,9,121,1) 35%, rgba(0,18,255,1) 100%);
+}
 
+/* MOBILE NAVIGATION STYLING */
+
+.header__links__mobile {
+  position: fixed;
+  display: block;
+  width: 70%;
+  height: 100%;
+  background: #0a0429;
+  color: #fff;
+  line-height: 40px;
+  padding-top: 92px;
+  right: -200%;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  transition: all 1s ease-in-out;
+}
+
+
+.header__links__mobile > li {
+  display: flex;
+  justify-content: flex-start;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid black;
+  padding: 20px;
+  box-sizing: border-box;
+  font-weight: var(--mediumWeight);
+  transition: all 1s ease-in-out;
+}
+
+.header__links__mobile li a:hover {
+  padding-left: 10px;
+}
+.header__links__mobile > li:last-child {
+  border-bottom: 1px solid rgba(159, 154, 154, 0.1);
+}
+.show__nav > .header__links__mobile {
+  right: 0;
+}
+.show__nav > .close__nav {
+  display: block;
+  z-index: 999;
+  color: #fff;
+}
+.close__nav {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+}
+.backdrop {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+  transition: all 0.5s ease-in-out;
+}
