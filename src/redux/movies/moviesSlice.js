@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios"
 const initialState = {
     movies: [],
+    genres: [],
     nowPlayingMovies: [],
     status: "idle",
     error: null
@@ -22,6 +23,31 @@ export const fetchMovies = createAsyncThunk("movies/fetchMovies", async() => {
   const response = await axios.request(moviesOptions)
   const data = await response.data
   return data.results
+})
+
+
+/********************************** FETCH MOVIE GENRES *****************************/
+
+const movieGenresURL = `https://api.themoviedb.org/3/genre/movie/list?language=en`
+const genresOptions = {
+  method: 'GET',
+  url: movieGenresURL,
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDIwZmM4MGM1NGMyMjc5Yzk4ZTI0OWE3ZmQ5NDFjYyIsInN1YiI6IjY2NGYzOTM4MDViNjY3ZTNlZDA2NTQ0MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VIcsQS6zkawudRMQQTxItXEFiqGcpKmYhP_e41So2Tc'
+
+  }
+}
+
+export const fetchGenres = createAsyncThunk("genres/fetchGenres", async(body) => {
+
+  const response = await axios.request(genresOptions)
+  const data = await response.data
+  const movieGenres = body.map((id) => {
+    const newGenre = data.genres.find((genre) => genre.id === id)
+    return newGenre
+  })
+  return movieGenres
 })
 
 /********************************** FETCH NOW PLAYING MOVIES *****************************/
@@ -48,7 +74,11 @@ export const moviesSlice = createSlice({
       sortMovies: (state, action) => {
         const payload = action.payload
         const sortedMovies = [...state.movies].sort((a, b) => {
-          return a[payload] > b[payload] ? 0 : -1
+          if(payload === "title"){
+            return a[payload] > b[payload] ? 0 : -1
+          } else {
+            return a[payload] > b[payload] ? -1 : 0
+          }
         })
         return {...state, movies: sortedMovies}
       }
@@ -65,6 +95,18 @@ export const moviesSlice = createSlice({
         state.movies = [...movies]
       })
       .addCase(fetchMovies.rejected, (state, action) => {
+        state.status = "failed"
+        state.error = action.error.message
+      })
+      .addCase(fetchGenres.pending, (state, action) => {
+        state.status = "loading"
+      })
+      .addCase(fetchGenres.fulfilled, (state, action) => {
+        state.status = "succeeded"
+        const genres = action.payload
+        state.genres = [...genres]
+      })
+      .addCase(fetchGenres.rejected, (state, action) => {
         state.status = "failed"
         state.error = action.error.message
       })
@@ -86,6 +128,7 @@ export const moviesSlice = createSlice({
 export const selectStatus = (state) => state.movies.status;
 export const selectError = (state) => state.movies.error;
 export const selectAllMovies = (state) => state.movies.movies;
+export const selectGenres = (state) => state.movies.genres;
 export const selectAllNowPlayingMovies = (state) => state.movies.nowPlayingMovies;
 export const selectMovieById = (state, movieId) => state.movies.movies.find((movie) =>  movie.id === movieId)
 export const selectNowPlayingMovieById = (state, movieId) => state.movies.nowPlayingMovies.find((movie) =>  movie.id === movieId)

@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { FaCalendarAlt , FaUser } from "react-icons/fa";
+import { FaCalendarAlt , FaUser, FaStar  } from "react-icons/fa";
 import { BiSolidUpvote } from "react-icons/bi";
 import { sortMovies } from "../redux/movies/moviesSlice";
 import { sortShows } from "../redux/tvshows/showsSlice";
 const SortBy = ({ source }) => {
     const dispatch = useDispatch()
   return (
-    <section className="w-[300px] md:w-[650px] lg:w-[950px] mx-auto z-10 shadow-xl mb-8 p-2 rounded-lg flex items-center justify-between mt-6 md:mt-8 lg:mt-10">
+    <section className="w-[300px] md:w-[650px] lg:w-[950px] mx-auto z-10 shadow-xl mb-8 p-2 rounded-lg flex items-center justify-center md:justify-between mt-6 md:mt-8 lg:mt-10">
       <p className="hidden md:block text-gray-500 font-bold w-36 md:text-xl">
         Sort jobs by
       </p>
@@ -42,6 +42,16 @@ const SortBy = ({ source }) => {
           </span>
           <BiSolidUpvote className="hidden md:block md:text-xl"/>
           <span className="text-gray-500 px-2 md:text-xl">Vote</span>
+        </button>
+        <button
+          onClick={() => source === "movies" ? dispatch(sortMovies("popularity")) :  dispatch(sortShows("popularity"))}
+          className=" group relative px-4 md:px-8 flex items-center gap-1 text-gray-500"
+        >
+          <span className="absolute group-hover:opacity-90 transition-opacity bg-gray-700 text-white px-4 py-1 rounded opacity-0 mb-20">
+            Popularity
+          </span>
+          <FaStar  className="hidden md:block md:text-xl"/>
+          <span className="text-gray-500 px-2 md:text-xl">Popularity</span>
         </button>
       </section>
     </section>

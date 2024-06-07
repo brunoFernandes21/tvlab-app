@@ -66,10 +66,10 @@ const MobileNavigation = ({ setShowNav, logout }) => {
           <NavLink
             to="/landing-page"
             onClick={logout}
-            className="text-gray-400 flex items-center gap-2 transition ease-in-out duration-500 hover:text-gray-100"
+            className="text-gray-400 flex items-center gap-2 transition ease-in-out duration-500 hover:text-gray-100 border rounded-md px-2"
           >
             <IoLogInOutline
-              className="md:hidden text-4xl text-slate-400"
+              className="md:hidden text-2xl text-slate-400"
              
             />
             <span>Log out</span>

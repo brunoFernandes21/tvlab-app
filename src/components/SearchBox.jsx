@@ -10,7 +10,7 @@ const SearchBox = ({ handleChange, searchValue }) => {
       >
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <FaFilter  className={`w-4 h-4  ${searchValue ? "text-orange-400" : "text-gray-500"}`} />
+            <FaSearch  className={`w-4 h-4  ${searchValue ? "text-orange-400" : "text-gray-500"}`} />
           </div>
           <input
             type="search"

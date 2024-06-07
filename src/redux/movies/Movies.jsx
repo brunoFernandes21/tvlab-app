@@ -20,10 +20,10 @@ const Movies = () => {
     dispatch(fetchMovies());
   }, []);
 
-    const sortedMovies = [...movies].sort((a, b) => {
-    return a["vote_count"] > b["vote_count"] ? -1 : 0
-  }) 
-  const content = sortedMovies.map((movie) => (
+  //   const sortedMovies = [...movies].sort((a, b) => {
+  //   return a["vote_count"] > b["vote_count"] ? -1 : 0
+  // }) 
+  const content = movies.map((movie) => (
     <MovieCard key={movie.id} prop={movie} />
   ));
 
