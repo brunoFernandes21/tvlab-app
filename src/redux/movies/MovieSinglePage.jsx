@@ -36,7 +36,7 @@ const MovieSinglePage = () => {
     // dispatch(fetchMovies());
   }, []);
 
-  if (!movie) {
+  if (!singleMovie) {
     return (
       <section className="flex items-center justify-center p-16 bg-black">
         <div className="flex flex-col text-center gap-6 max-w-md">

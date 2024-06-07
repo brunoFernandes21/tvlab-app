@@ -10,32 +10,33 @@ const initialState = {
 
 /*****************************************FETCH MOVIES ****************************/
 
-const moviesURL = `https://api.themoviedb.org/3/discover/movie?${import.meta.env.VITE_REACT_APP_API_KEY}`
+const moviesURL = "https://api.themoviedb.org/3/discover/movie?with_genres"
 const moviesOptions =  {
   method: 'GET',
   url: moviesURL,
   headers: {
     accept: 'application/json',
+    Authorization: `Bearer ${import.meta.env.VITE_REACT_APP_API_KEY}`
   }
 };
 
 export const fetchMovies = createAsyncThunk("movies/fetchMovies", async() => {
   const response = await axios.request(moviesOptions)
   const data = await response.data
+  console.log(data.results);
   return data.results
 })
 
 
 /********************************** FETCH MOVIE GENRES *****************************/
 
-const movieGenresURL = `https://api.themoviedb.org/3/genre/movie/list?language=en`
+const movieGenresURL = "https://api.themoviedb.org/3/genre/movie/list?language=en"
 const genresOptions = {
   method: 'GET',
   url: movieGenresURL,
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDIwZmM4MGM1NGMyMjc5Yzk4ZTI0OWE3ZmQ5NDFjYyIsInN1YiI6IjY2NGYzOTM4MDViNjY3ZTNlZDA2NTQ0MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VIcsQS6zkawudRMQQTxItXEFiqGcpKmYhP_e41So2Tc'
-
+    Authorization: `Bearer ${import.meta.env.VITE_REACT_APP_API_KEY}`
   }
 }
 
@@ -51,12 +52,13 @@ export const fetchGenres = createAsyncThunk("genres/fetchGenres", async(body) =>
 })
 
 /********************************** FETCH NOW PLAYING MOVIES *****************************/
- const nowPlayingMoviesURL = `https://api.themoviedb.org/3/movie/now_playing?${import.meta.env.VITE_REACT_APP_API_KEY}`
+ const nowPlayingMoviesURL = "https://api.themoviedb.org/3/movie/now_playing?"
 const nowPlayingOptions = {
   method: 'GET',
   url: nowPlayingMoviesURL,
   headers: {
     accept: 'application/json',
+    Authorization: `Bearer ${import.meta.env.VITE_REACT_APP_API_KEY}`
   }
 };
 

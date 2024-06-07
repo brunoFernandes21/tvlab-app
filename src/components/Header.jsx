@@ -73,7 +73,7 @@ const Header = ({ currentUser, logout, setShowNav }) => {
             {currentUser && <button className=" hover:bg-slate-900 rounded p-1">
               <IoMdMenu
                 onClick={() => setShowNav(true)}
-                className="md:hidden text-slate-100 text-2xl transition ease-in-out duration-500 hover:text-gray-100"
+                className="md:hidden text-slate-100 text-3xl transition ease-in-out duration-500 hover:text-gray-100"
               />
             </button>}
           </div>

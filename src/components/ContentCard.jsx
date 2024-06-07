@@ -5,10 +5,10 @@ const MovieCard = ({ prop }) => {
   const title = prop.title ? prop.title : prop.name
 
   const date = prop.release_date ? prop.release_date : prop.first_air_date
-
+  console.log(prop);
 
   return (
-    <section className=" bg-slate-900 rounded-lg transition-all ease-in-out duration-500 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:shadow-sky-500 hover:scale-105 hover:border-4 hover:border-slate-300">
+    <section className=" bg-slate-900 rounded-lg transition-all ease-in-out duration-500 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:shadow-blue-400 hover:scale-105 hover:border-4 hover:border-slate-300">
       <div>
         <Link to={prop.title ? `/movies/${prop.id}` : `/tv-shows/${prop.id}`}>
           <div>
