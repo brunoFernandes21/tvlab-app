@@ -9,12 +9,13 @@ const initialState = {
 };
 
 /*****************************************FETCH SHOWS ****************************/
-const showsURL = `https://api.themoviedb.org/3/discover/tv?${import.meta.env.VITE_REACT_APP_API_KEY}`;
+const showsURL = `https://api.themoviedb.org/3/discover/tv`;
 const showsOptions = {
   method: "GET",
   url: showsURL,
   headers: {
-    accept: "application/json"
+    accept: "application/json",
+    Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`
   }
 };
 
@@ -31,7 +32,7 @@ const genresOptions = {
   url: movieGenresURL,
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDIwZmM4MGM1NGMyMjc5Yzk4ZTI0OWE3ZmQ5NDFjYyIsInN1YiI6IjY2NGYzOTM4MDViNjY3ZTNlZDA2NTQ0MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VIcsQS6zkawudRMQQTxItXEFiqGcpKmYhP_e41So2Tc'
+    Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`
 
   }
 }

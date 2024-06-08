@@ -44,14 +44,14 @@ const SortBy = ({ source }) => {
           <span className="text-gray-500 px-2 md:text-xl">Vote</span>
         </button>
         <button
-          onClick={() => source === "movies" ? dispatch(sortMovies("popularity")) :  dispatch(sortShows("popularity"))}
+          onClick={() => source === "movies" ? dispatch(sortMovies("vote_average")) :  dispatch(sortShows("vote_average"))}
           className=" group relative px-4 md:px-8 flex items-center gap-1 text-gray-500"
         >
           <span className="absolute group-hover:opacity-90 transition-opacity bg-gray-700 text-white px-4 py-1 rounded opacity-0 mb-20">
-            Popularity
+            Rating
           </span>
           <FaStar  className="hidden md:block md:text-xl"/>
-          <span className="text-gray-500 px-2 md:text-xl">Popularity</span>
+          <span className="text-gray-500 px-2 md:text-xl">Rating</span>
         </button>
       </section>
     </section>

@@ -21,28 +21,28 @@ const ShowSinglePage = () => {
     dispatch(fetchGenres(showGenres));
   }, []);
 
-  if (!show) {
-    return (
-      <section className="flex items-center justify-center p-16 bg-black">
-        <div className="flex flex-col text-center gap-6 max-w-md">
-          <FaExclamationTriangle className="text-yellow-400 text-6xl mx-auto" />
+  // if (!show) {
+  //   return (
+  //     <section className="flex items-center justify-center p-16 bg-black">
+  //       <div className="flex flex-col text-center gap-6 max-w-md">
+  //         <FaExclamationTriangle className="text-yellow-400 text-6xl mx-auto" />
 
-          <h2 className="font-extrabold text-9xl text-slate-700 dark:text-gray-100">
-            404
-          </h2>
-          <p className="text-2xl md:text-3xl dark:text-gray-300">
-            Sorry, we couldn&apos;t find show.
-          </p>
-          <Link
-            to="/"
-            className="px-8 py-4 text-xl font-semibold rounded-xl bg-sky-600 text-white hover:bg-sky-700"
-          >
-            Back to home
-          </Link>
-        </div>
-      </section>
-    );
-  }
+  //         <h2 className="font-extrabold text-9xl text-slate-700 dark:text-gray-100">
+  //           404
+  //         </h2>
+  //         <p className="text-2xl md:text-3xl dark:text-gray-300">
+  //           Sorry, we couldn&apos;t find show.
+  //         </p>
+  //         <Link
+  //           to="/"
+  //           className="px-8 py-4 text-xl font-semibold rounded-xl bg-sky-600 text-white hover:bg-sky-700"
+  //         >
+  //           Back to home
+  //         </Link>
+  //       </div>
+  //     </section>
+  //   );
+  // }
 
   const backdropUrl = show.backdrop_path
     ? `https://image.tmdb.org/t/p/w500${show.backdrop_path}`

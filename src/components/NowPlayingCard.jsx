@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
 
 const NowPlayingCard = ({ movie }) => {
 
@@ -22,8 +23,10 @@ const NowPlayingCard = ({ movie }) => {
             <p className="py-2 text-sm">
            <strong> Release Date:</strong> {movie.release_date}
             </p>
-            <p className="pb-2 text-sm">
-              <strong>Vote: </strong>{movie.vote_count}
+            <p className="pb-2 text-sm flex items-center gap-2">
+              <strong>Vote: </strong>
+              <FaStar className="text-yellow-400" />
+              <span>{movie.vote_average.toFixed()} / 10</span>
             </p>
           </div>
         </Link>

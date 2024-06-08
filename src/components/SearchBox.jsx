@@ -1,12 +1,13 @@
 import { FaSearch, FaFilter  } from "react-icons/fa";
 
-const SearchBox = ({ handleChange, searchValue }) => {
+const SearchBox = ({ handleChange, searchValue, searchMovies }) => {
     
 
   return (
     <>
       <form
         className="max-w-2xl w-full md:w-[450px] mx-auto px-2 md:px-6 lg:px-8"
+        onSubmit={searchMovies}
       >
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -19,12 +20,13 @@ const SearchBox = ({ handleChange, searchValue }) => {
             value={searchValue}
             onChange={handleChange}
           />
-          {/* {searchValue && (
-            <IoMdCloseCircle
-              className="absolute cursor-pointer -mt-10 right-28 text-xl"
-              onClick={() => setSearchValue("")}
-            />
-          )} */}
+          <button
+            type="submit"
+            className="text-white absolute right-2 md:-right-24 bottom-[5px] bg-orange-400 hover:bg-orange-700 focus:ring-2 focus:outline-none focus:ring-orange-400 font-semibold rounded-lg text-sm px-4 py-3 transition-all duration-500 "
+          >
+            Search
+          </button>
+
         </div>
       </form>
     </>
