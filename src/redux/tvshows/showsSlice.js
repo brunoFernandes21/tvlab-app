@@ -3,6 +3,9 @@ import axios from "axios"
 
 const initialState = {
   shows: [],
+  search: "",
+  pages: 0,
+  totalResults: 0,
   genres: [],
   status: "idle",
   error: null,
@@ -10,6 +13,7 @@ const initialState = {
 
 /*****************************************FETCH SHOWS ****************************/
 const showsURL = `https://api.themoviedb.org/3/discover/tv`;
+const searchShowsURL = "https://api.themoviedb.org/3/search/tv";
 const showsOptions = {
   method: "GET",
   url: showsURL,
@@ -19,11 +23,30 @@ const showsOptions = {
   }
 };
 
-export const fetchShows = createAsyncThunk("shows/fetchShows", async() => {
+export const fetchShows = createAsyncThunk("shows/fetchShows", async(body) => {
+  if(body) {
+    const response = await axios.request({
+      method: "GET",
+      url: `${searchShowsURL}?query=${body.searchValue}`,
+      headers: {
+        accept: "application/json",
+        Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`,
+      },
+    });
+    const data = await response.data;
+    const returnedValue = {
+      search: body.searchValue,
+      shows: data.results,
+      responseObject: data
+    }
+    return returnedValue;
+  }else {
     const response = await axios.request(showsOptions)
     const data = await response.data
     return data.results
+  }
 })
+
 
 /********************************** FETCH Shows GENRES *****************************/
 const movieGenresURL = "https://api.themoviedb.org/3/genre/tv/list"
@@ -71,8 +94,21 @@ export const showsSlice = createSlice({
       })
       .addCase(fetchShows.fulfilled, (state, action) => {
         state.status = "succeeded"
-        const shows = action.payload
+        const shows = action.payload.shows ? action.payload.shows : action.payload
         state.shows = [...shows]
+
+        const title = action.payload.search ? action.payload.search : ""
+        state.search = title
+
+        const pages = action.payload.responseObject
+          ? action.payload.responseObject.total_pages
+          : 0;
+        state.pages = pages;
+
+        const total_results = action.payload.responseObject
+          ? action.payload.responseObject.total_results
+          : 0;
+        state.totalResults = total_results;
       })
       .addCase(fetchShows.rejected, (state, action) => {
         state.status = "failed"

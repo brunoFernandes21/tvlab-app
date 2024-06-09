@@ -59,7 +59,6 @@ const Login = ({ setCurrentUser }) => {
         navigate("/");
       }
     } catch (error) {
-      console.log(error.message);
       setError("We did not recognise your details");
       setLoading(false);
       setTimeout(() => {

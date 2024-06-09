@@ -30,7 +30,7 @@ const Header = ({ currentUser, logout, setShowNav }) => {
                 Movies
               </NavLink>
               <NavLink to="/tv-shows" className={linkClass}>
-                TvShows
+                Tv Shows
               </NavLink>
               <NavLink to="/favourites" className={linkClass}>
                 Favourites

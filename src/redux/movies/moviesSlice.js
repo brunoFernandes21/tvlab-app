@@ -20,34 +20,37 @@ const moviesOptions = {
   url: moviesURL,
   headers: {
     accept: "application/json",
-    Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`
+    Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`,
   },
 };
 
-export const fetchMovies = createAsyncThunk("movies/fetchMovies", async (searchValue) => {
-  if(searchValue) {
-    const response = await axios.request({
-      method: "GET",
-      url: `${searchMoviesURL}?query=${searchValue}`,
-      headers: {
-        accept: "application/json",
-        Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`,
-      },
-    });
-    const data = await response.data;
-    const returnedValue = {
-      search: searchValue,
-      movies: data.results,
-      responseObject: data
+export const fetchMovies = createAsyncThunk(
+  "movies/fetchMovies",
+  async (body) => {
+    if (body) {
+      const response = await axios.request({
+        method: "GET",
+        url: `${searchMoviesURL}?query=${body.searchValue}`,
+        headers: {
+          accept: "application/json",
+          Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`,
+        },
+      });
+      const data = await response.data;
+     
+      const returnedValue = {
+        search: body.searchValue,
+        movies: data.results,
+        responseObject: data,
+      };
+      return returnedValue;
+    } else {
+      const response = await axios.request(moviesOptions);
+      const data = await response.data;
+      return data.results;
     }
-    return returnedValue;
-  } else {
-    const response = await axios.request(moviesOptions);
-    const data = await response.data;
-    return data.results;
   }
-  
-});
+);
 
 /********************************** FETCH MOVIE GENRES *****************************/
 
@@ -136,17 +139,24 @@ export const moviesSlice = createSlice({
       })
       .addCase(fetchMovies.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const movies = action.payload.movies ? action.payload.movies : action.payload
-        state.movies = [...movies]
 
-        const title = action.payload.search ? action.payload.search : ""
-        state.search = title
+        const movies = action.payload.movies
+          ? action.payload.movies
+          : action.payload;
+        state.movies = [...movies];
 
-        const pages = action.payload.responseObject ? action.payload.responseObject.total_pages : 0
-        state.pages = pages
+        const title = action.payload.search ? action.payload.search : "";
+        state.search = title;
 
-        const total_results = action.payload.responseObject ? action.payload.responseObject.total_results : 0
-        state.totalResults = total_results
+        const pages = action.payload.responseObject
+          ? action.payload.responseObject.total_pages
+          : 0;
+        state.pages = pages;
+
+        const total_results = action.payload.responseObject
+          ? action.payload.responseObject.total_results
+          : 0;
+        state.totalResults = total_results;
       })
       .addCase(fetchMovies.rejected, (state, action) => {
         state.status = "failed";
@@ -182,9 +192,9 @@ export const moviesSlice = createSlice({
 export const selectStatus = (state) => state.movies.status;
 export const selectError = (state) => state.movies.error;
 export const selectAllMovies = (state) => state.movies.movies;
-export const selectPages = (state) => state.movies.pages
-export const selectTotalResults = (state) => state.movies.totalResults
-export const selectSearchValue = (state) => state.movies.search
+export const selectPages = (state) => state.movies.pages;
+export const selectTotalResults = (state) => state.movies.totalResults;
+export const selectSearchValue = (state) => state.movies.search;
 export const selectGenres = (state) => state.movies.genres;
 export const selectAllNowPlayingMovies = (state) =>
   state.movies.nowPlayingMovies;
