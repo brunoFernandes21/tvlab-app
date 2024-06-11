@@ -132,6 +132,9 @@ export const showsSlice = createSlice({
 export const selectStatus = (state) => state.shows.status;
 export const selectError = (state) => state.shows.error;
 export const selectAllShows = (state) => state.shows.shows;
+export const selectShowsPages = (state) => state.shows.pages;
+export const selectShowsTotalResults = (state) => state.shows.totalResults;
+export const selectShowsSearchValue = (state) => state.shows.search;
 export const selectGenres = (state) => state.shows.genres;
 export const selectShowById = (state, showId) => state.shows.shows.find((show) =>  show.id === showId)
 export const { sortShows } = showsSlice.actions;

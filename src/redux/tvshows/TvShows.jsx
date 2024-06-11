@@ -27,11 +27,11 @@ const TvShows = () => {
       <h1 className="text-xl md:text-4xl lg:text-5xl font-bold text-center">
         Popular Tv Shows
       </h1>
-      <SortBy source="shows"/>
+      <SortBy source="shows" />
+      {showStatus === "loading" && (
+        <Spinner text="Loading" loading={showStatus} />
+      )}
       <div className="container m-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 md:mt-8 lg:mt-10 px-2 md:px-6 lg:px-8">
-        {showStatus === "loading" && (
-          <Spinner text="Loading" loading={showStatus} />
-        )}
         {showStatus === "succeeded" && content}
         {showStatus === "failed" && (
           <p className="text-xl text-center">Unable to find shows</p>

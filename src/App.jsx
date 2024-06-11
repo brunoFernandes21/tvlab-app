@@ -1,4 +1,11 @@
-import { Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { auth } from "./firebase/firebase.js";
+import { signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { ProtectedRoutes } from "../src/ProtectedRoutes";
+import { UnProtectedRoutes } from "../src/UnprotectedRoutes";
+
 import Homepage from "./pages/Homepage";
 import NotFound from "./pages/NotFound";
 import Movies from "./redux/movies/Movies";
@@ -12,16 +19,13 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import MobileNavigation from "./components/MobileNavigation.jsx";
 import Background from "./components/Background.jsx";
-import { useEffect, useState } from "react";
-import { auth } from "./firebase/firebase.js";
-import { signOut } from "firebase/auth";
-import { onAuthStateChanged } from "firebase/auth";
-import { ProtectedRoutes } from "../src/ProtectedRoutes";
-import { UnProtectedRoutes } from "../src/UnprotectedRoutes";
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [showNav, setShowNav] = useState(false);
+  const navigate = useNavigate();
+
 
 //prevent user from logging out after page refresh
 useEffect(() => {
@@ -37,12 +41,13 @@ useEffect(() => {
 
   const logout = async () => {
     await signOut(auth);
+    navigate("/login")
     setCurrentUser(null);
   };
 
 
   return (
-    <div className={`${showNav ? "show__nav" : ""}`}>
+    <div className={`${showNav ? "show__nav" : ""} app`}>
     <Background showNav={showNav} />
       <Header currentUser={currentUser} logout={logout} setShowNav={setShowNav}/>
       {showNav && <MobileNavigation currentUser={currentUser} showNav={showNav} setShowNav={setShowNav} logout={logout}/>}

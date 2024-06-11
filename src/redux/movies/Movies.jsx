@@ -20,9 +20,6 @@ const Movies = () => {
     dispatch(fetchMovies());
   }, []);
 
-  //   const sortedMovies = [...movies].sort((a, b) => {
-  //   return a["vote_count"] > b["vote_count"] ? -1 : 0
-  // }) 
   const content = movies.map((movie) => (
     <MovieCard key={movie.id} prop={movie} />
   ));
@@ -33,10 +30,10 @@ const Movies = () => {
         Popular Movies
       </h1>
       <SortBy source="movies"/>
-      <div className="container m-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 md:mt-8 lg:mt-10 px-2 md:px-6 lg:px-8">
         {movieStatus === "loading" && (
           <Spinner text="Loading" loading={movieStatus} />
         )}
+      <div className="container m-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 md:mt-8 lg:mt-10 px-2 md:px-6 lg:px-8">
         {movieStatus === "succeeded" && content}
         {movieStatus === "failed" && (
           <p className="text-xl text-center">Unable to find movies</p>

@@ -68,9 +68,9 @@ const Login = ({ setCurrentUser }) => {
   };
 
   return (
-    <section className="background min-h-screen ">
+    <section className="background">
       <div className="container m-auto max-w-lg py-10 md:py-24 px-5">
-        <div className="form__section relative bg-slate-900 text-white px-4 py-8 mb-4 shadow-md shadow-white ">
+        <div className="form__section relative bg-slate-900 text-white px-4 py-8 mb-4 shadow-md shadow-white">
           <div className="mb-4">
             <button
               onClick={handleGoogleAuth}

@@ -111,7 +111,7 @@ const Register = ({ setCurrentUser }) => {
   };
 
   return (
-    <section className="background min-h-screen">
+    <section className="background">
       <div className="container m-auto max-w-lg py-10 md:py-24 px-5">
         <div className="form__section relative bg-slate-900 text-white px-4 py-8 mb-4 shadow-md shadow-white ">
           <div className="mb-4">
@@ -135,6 +135,7 @@ const Register = ({ setCurrentUser }) => {
           )}
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username</label>
+            {!formData.username && <p className="text-red-400">Required*</p>}
             <input
               type="text"
               className="block bg-slate-100 text-black border border-grey-light w-full p-3 rounded-md mb-4"
@@ -146,6 +147,7 @@ const Register = ({ setCurrentUser }) => {
               required
             />
             <label htmlFor="email">Email</label>
+           {!formData.email && <p className="text-red-400">Required*</p>}
             <input
               type="email"
               className="block bg-slate-100 text-black border border-grey-light w-full p-3 rounded-md mb-4"

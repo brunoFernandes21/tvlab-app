@@ -12,7 +12,7 @@ const MovieCard = ({ prop }) => {
         <Link to={prop.title ? `/movies/${prop.id}` : `/tv-shows/${prop.id}`}>
           <div>
             <img
-              src={prop.poster_path ? `https://image.tmdb.org/t/p/w500/${prop.poster_path}` : "/poster.jpeg"}
+              src={prop.poster_path ? `https://image.tmdb.org/t/p/w500/${prop.poster_path}` : "/original-poster.png"}
               alt="Image not available"
               className="rounded-md"
             />
