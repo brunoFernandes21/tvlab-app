@@ -1,8 +1,7 @@
-import React from "react";
+//ROUTER DOM
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
-  // className="h-screen flex items-center justify-center"
   return (
     <main className=" pt-10 md:pt-20 lg:pt-40 ">
       <section className="container m-auto my-6 md:my-8 lg:my-10 px-2 md:px-6 lg:px-8 ">

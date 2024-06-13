@@ -1,24 +1,34 @@
+// REACT 
 import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { auth } from "./firebase/firebase.js";
-import { signOut } from "firebase/auth";
-import { onAuthStateChanged } from "firebase/auth";
-import { ProtectedRoutes } from "../src/ProtectedRoutes";
-import { UnProtectedRoutes } from "../src/UnprotectedRoutes";
 
-import Homepage from "./pages/Homepage";
-import NotFound from "./pages/NotFound";
+// REACT ROUTER 
+import { Routes, Route, useNavigate } from "react-router-dom";
+
+// REDUX 
 import Movies from "./redux/movies/Movies";
 import MovieSinglePage from "./redux/movies/MovieSinglePage";
 import ShowSinglePage from "./redux/tvshows/ShowSinglePage";
 import TvShow from "./redux/tvshows/TvShows";
+
+//FIREBASE
+import { auth } from "./firebase/firebase.js";
+import { signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+
+// COMPONENTS 
+import { ProtectedRoutes } from "../src/ProtectedRoutes";
+import { UnProtectedRoutes } from "../src/UnprotectedRoutes";
 import Header from "./components/Header";
 import ScrollToTop from "./components/ScrollToTop";
+import MobileNavigation from "./components/MobileNavigation.jsx";
+import Background from "./components/Background.jsx";
+
+// PAGES 
+import Homepage from "./pages/Homepage";
+import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import MobileNavigation from "./components/MobileNavigation.jsx";
-import Background from "./components/Background.jsx";
 
 
 function App() {

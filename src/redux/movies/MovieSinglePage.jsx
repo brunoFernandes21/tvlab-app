@@ -1,21 +1,26 @@
+// REACT
 import React, { useEffect } from "react";
+
+// REACT DOM
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+// REDUX
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchMovies,
+  // fetchMovieById,
   fetchGenres,
   selectMovieById,
   selectNowPlayingMovieById,
   selectStatus,
   selectGenres,
 } from "./moviesSlice";
-import {
-  FaExclamationTriangle,
-  FaArrowCircleLeft,
-  FaStar,
-} from "react-icons/fa";
-import { Link } from "react-router-dom";
+
+// COMPONENTS
 import Spinner from "../../components/Spinner";
+
+// ICONS
+import { FaArrowCircleLeft, FaStar } from "react-icons/fa";
 
 const MovieSinglePage = () => {
   const { movieId } = useParams();
@@ -36,36 +41,12 @@ const MovieSinglePage = () => {
     // dispatch(fetchMovies());
   }, []);
 
-  // if (!singleMovie) {
-  //   return (
-  //     <section className="flex items-center justify-center p-16 bg-black">
-  //       <div className="flex flex-col text-center gap-6 max-w-md">
-  //         <FaExclamationTriangle className="text-yellow-400 text-6xl mx-auto" />
-
-  //         <h2 className="font-extrabold text-9xl text-slate-700 dark:text-gray-100">
-  //           404
-  //         </h2>
-  //         <p className="text-2xl md:text-3xl dark:text-gray-300">
-  //           Sorry, we couldn&apos;t find movie.
-  //         </p>
-  //         <Link
-  //           to="/"
-  //           className="px-8 py-4 text-xl font-semibold rounded-xl bg-sky-600 text-white hover:bg-sky-700"
-  //         >
-  //           Back to home
-  //         </Link>
-  //       </div>
-  //     </section>
-  //   );
-  // }
-
   const backdropUrl = singleMovie.backdrop_path
     ? `https://image.tmdb.org/t/p/w500${singleMovie.backdrop_path}`
     : `https://image.tmdb.org/t/p/w500${singleMovie.poster_path}`;
   const posterUrl = singleMovie.poster_path
     ? `https://image.tmdb.org/t/p/w500${singleMovie.poster_path}`
     : "/poster.jpeg";
-  // grid grid-cols-1 md-grid-cols-[30%70%]
   return (
     <section>
       {movieStatus === "loading" && <Spinner />}
@@ -130,7 +111,12 @@ const MovieSinglePage = () => {
                   </p>
                   <ul className="flex items-center gap-2">
                     {genres.map((genre) => (
-                      <li className="text-sm md:text-lg font-extralight" key={genre.id}>{genre.name}</li>
+                      <li
+                        className="text-sm md:text-lg font-extralight"
+                        key={genre.id}
+                      >
+                        {genre.name}
+                      </li>
                     ))}
                   </ul>
                 </div>

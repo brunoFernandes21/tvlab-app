@@ -1,6 +1,9 @@
-import { AiOutlineClose } from "react-icons/ai";
+//ROUTER DOM
 import { NavLink } from "react-router-dom";
+
+//ICONS
 import { IoLogInOutline } from "react-icons/io5";
+import { AiOutlineClose } from "react-icons/ai";
 
 const MobileNavigation = ({ setShowNav, logout }) => {
   const linkClass = ({ isActive }) => {

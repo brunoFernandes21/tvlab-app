@@ -1,6 +1,8 @@
+//REACT
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 
+//REDUX
+import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllMovies,
   selectPages,
@@ -17,6 +19,7 @@ import {
   selectShowsSearchValue,
 } from "../tvshows/showsSlice";
 
+//COMPONENTS
 import Spinner from "../../components/Spinner";
 import MovieCard from "../../components/ContentCard";
 import SearchBox from "../../components/SearchBox";
@@ -129,10 +132,9 @@ const PopularMovies = () => {
           )}
       </div>
       {movieStatus === "loading" && (
-          <Spinner text="Loading" loading={movieStatus} />
-        )}
+        <Spinner text="Loading" loading={movieStatus} />
+      )}
       <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto px-2 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10 rounded-lg ">
-
         {movieStatus === "succeeded" && displayContent}
         {popularMovies.length === 0 && (
           <p className="text-xl mx-auto">Unable to find movies</p>

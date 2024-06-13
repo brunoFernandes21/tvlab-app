@@ -1,7 +1,9 @@
+//ROUTER DOM
 import { NavLink } from "react-router-dom";
+
+// ICONS 
 import { FaUser } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
-import MobileNavigation from "./MobileNavigation";
 
 const Header = ({ currentUser, logout, setShowNav }) => {
   const linkClass = ({ isActive }) => {

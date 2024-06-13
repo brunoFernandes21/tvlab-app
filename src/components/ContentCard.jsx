@@ -1,6 +1,11 @@
+//REACT
 import React from "react";
+//ROUTER DOM
 import { Link } from "react-router-dom";
+//ICONS
 import { FaStar } from "react-icons/fa";
+
+
 const MovieCard = ({ prop }) => {
   const title = prop.title ? prop.title : prop.name;
 

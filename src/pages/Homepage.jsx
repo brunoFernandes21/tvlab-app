@@ -1,3 +1,4 @@
+//COMPONENTS
 import Hero from '../components/Hero'
 import PopularMovies from '../redux/movies/PopularMovies'
 

@@ -52,6 +52,9 @@ export const fetchMovies = createAsyncThunk(
   }
 );
 
+/*****************************************FETCH MOVIE BY ID ****************************/
+
+
 /********************************** FETCH MOVIE GENRES *****************************/
 
 const movieGenresURL =

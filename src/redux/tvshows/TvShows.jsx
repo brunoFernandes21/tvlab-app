@@ -1,3 +1,7 @@
+// REACT
+import { useEffect } from "react";
+
+//REDUX
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllShows,
@@ -5,7 +9,8 @@ import {
   selectStatus,
   selectError,
 } from "./showsSlice";
-import { useEffect } from "react";
+
+//COMPONENTS
 import Spinner from "../../components/Spinner";
 import ShowCard from "../../components/ContentCard";
 import SortBy from "../../components/SortBy";

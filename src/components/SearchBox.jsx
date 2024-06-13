@@ -1,6 +1,9 @@
-import { FaSearch, FaFilter } from "react-icons/fa";
-import { IoMdCloseCircle } from "react-icons/io";
+//SPEECH RECOGNITION
 import Speech from "./SpeechRecognition";
+
+//ICONS
+import { FaSearch } from "react-icons/fa";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const SearchBox = ({ handleChange, searchForm, setSearchForm, searchMovies }) => {
 

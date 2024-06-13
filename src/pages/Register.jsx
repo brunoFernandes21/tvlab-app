@@ -1,14 +1,14 @@
-import { FcGoogle } from "react-icons/fc";
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth, db } from "../firebase/firebase.js";
-import { Link, useNavigate } from "react-router-dom";
-import { setDoc, doc } from "firebase/firestore";
+//REACT
 import { useState } from "react";
+
+//ROUTER DOM
+import { Link, useNavigate } from "react-router-dom";
+
+//UTILS
+import { userRegistration, googleRegistration, validatePassword } from "../utils/userAuth.js";
+
+//ICONS
+import { FcGoogle } from "react-icons/fc";
 
 const Register = ({ setCurrentUser }) => {
   const [loading, setLoading] = useState(false);
@@ -32,81 +32,16 @@ const Register = ({ setCurrentUser }) => {
     });
   };
 
-  const validatePassword = () => {
-    let isValid = true;
-    if (formData.password !== formData.confirmPassword) {
-      isValid = false;
-      setTimeout(() => {
-        setPasswordError(null);
-      }, 5000);
-      setPasswordError("Passwords do not match");
-      return isValid;
-    }
-    setPasswordError(null);
-    return isValid;
-  };
-
   const handleGoogleAuth = async (event) => {
     event.preventDefault();
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      if (user) {
-        await setDoc(doc(db, "users", `${user.uid}`), {
-          userId: user.uid,
-          name: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-        });
-        setCurrentUser(user);
-        setLoading(false);
-        navigate("/");
-      }
-    } catch (error) {
-      setDbError("Unable to sign in");
-      setLoading(false);
-    }
+    googleRegistration(navigate, setCurrentUser, setDbError, setLoading)
   };
 
   // TODO: CREATE A UTILS FOLDER TO DO ALL THE AUTH CALLS
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const userName = formData.username;
-    const email = formData.email;
-    const password = formData.password;
-    if (validatePassword()) {
-      try {
-        setDbError(null);
-        setLoading(true);
-        const userCredentials = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        const user = userCredentials.user;
-
-        if (user) {
-          await updateProfile(auth.currentUser, {
-            displayName: userName,
-          });
-          await setDoc(doc(db, "users", `${user.uid}`), {
-            userId: user.uid,
-            name: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-          });
-          setCurrentUser(user);
-          setLoading(false);
-          navigate("/");
-        }
-      } catch (error) {
-        setDbError(error.message);
-        setLoading(false);
-        setTimeout(() => {
-          setDbError(null);
-        }, 3000);
-      }
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    if(validatePassword(formData.password, formData.confirmPassword, setPasswordError)){
+      userRegistration(formData.username, formData.email, formData.password, setLoading, setDbError, setCurrentUser, navigate)
     }
   };
 
@@ -134,11 +69,15 @@ const Register = ({ setCurrentUser }) => {
             </div>
           )}
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
-            {!formData.username && <p className="text-red-400">Required*</p>}
+            <label htmlFor="username" className="flex gap-2 items-center">
+              Username
+              {!formData.username && <p className="text-red-400">Required</p>}
+            </label>
             <input
               type="text"
-              className="block bg-slate-100 text-black border border-grey-light w-full p-3 rounded-md mb-4"
+              className={`block bg-slate-100 text-black border border-grey-light w-full p-3 rounded-md ${
+                !formData.username ? "border-red-600 border-4" : ""
+              } `}
               name="username"
               id="username"
               value={formData.username}
@@ -146,11 +85,18 @@ const Register = ({ setCurrentUser }) => {
               onChange={handleChange}
               required
             />
-            <label htmlFor="email">Email</label>
-           {!formData.email && <p className="text-red-400">Required*</p>}
+            {/* {!formData.username && <p className="text-red-400 mb-4">This field is required</p>} */}
+
+            <label htmlFor="email" className="flex gap-2 items-center">
+              Email
+              {!formData.username && <p className="text-red-400">Required</p>}
+            </label>
+
             <input
               type="email"
-              className="block bg-slate-100 text-black border border-grey-light w-full p-3 rounded-md mb-4"
+              className={`block bg-slate-100 text-black border border-grey-light w-full p-3 rounded-md ${
+                !formData.email ? "border-red-600 border-4" : ""
+              } `}
               name="email"
               id="email"
               value={formData.email}
@@ -158,12 +104,18 @@ const Register = ({ setCurrentUser }) => {
               onChange={handleChange}
               required
             />
-            <label htmlFor="password">Password</label>
+            {/* {!formData.email && <p className="text-red-400 mb-4">This field is required</p>} */}
+            <label htmlFor="password" className="flex gap-2 items-center">
+              Password
+              {!formData.username && <p className="text-red-400">Required</p>}
+            </label>
             <input
               type="password"
               className={`${
-                passwordError ? " border-red-600 border-4 border-dashed" : ""
-              } block bg-slate-100 text-black border border-grey-light w-full p-3 rounded-md mb-4 outline-none`}
+                passwordError || !formData.password
+                  ? " border-red-600 border-4"
+                  : ""
+              } block bg-slate-100 text-black border border-grey-light w-full p-3 rounded-md outline-none`}
               name="password"
               id="password"
               value={formData.password}
@@ -174,12 +126,20 @@ const Register = ({ setCurrentUser }) => {
               title="Password must be longer than 5 characters. Include a mix of letters, numbers"
             />
 
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label
+              htmlFor="confirmPassword"
+              className="flex gap-2 items-center"
+            >
+              Confirm Password
+              {!formData.username && <p className="text-red-400">Required</p>}
+            </label>
             <input
               type="password"
               className={`${
-                passwordError ? " border-red-600 border-4 border-dashed" : ""
-              } block bg-slate-100 text-black border border-grey-light w-full p-3 rounded-md mb-4 outline-none`}
+                passwordError || !formData.confirmPassword
+                  ? " border-red-600 border-4"
+                  : ""
+              } block bg-slate-100 text-black border border-grey-light w-full p-3 rounded-md outline-none`}
               name="confirmPassword"
               id="confirmPassword"
               value={formData.confirmPassword}

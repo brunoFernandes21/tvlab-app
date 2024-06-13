@@ -1,12 +1,13 @@
+//REACT
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
-import {
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth, db } from "../firebase/firebase.js";
+
+//ROUTER DOM
 import { Link, useNavigate } from "react-router-dom";
+
+//ICONS
+import { FcGoogle } from "react-icons/fc";
+
+import { googleLogin, userLogin } from "../utils/userAuth";
 
 const Login = ({ setCurrentUser }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -25,46 +26,19 @@ const Login = ({ setCurrentUser }) => {
 
   const handleGoogleAuth = async (event) => {
     event.preventDefault();
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      if (user) {
-        setCurrentUser(user);
-        setLoading(false);
-        navigate("/");
-      }
-    } catch (error) {
-      setError("Unable to login");
-      setLoading(false);
-    }
+    googleLogin(setCurrentUser, setLoading, setError, navigate);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const email = formData.email;
-    const password = formData.password;
-    try {
-      setError(null);
-      setLoading(true);
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-      if (user) {
-        setCurrentUser(user);
-        setLoading(false);
-        navigate("/");
-      }
-    } catch (error) {
-      setError("We did not recognise your details");
-      setLoading(false);
-      setTimeout(() => {
-        setError(null);
-      }, 3000);
-    }
+    userLogin(
+      formData.email,
+      formData.password,
+      setCurrentUser,
+      setLoading,
+      setError,
+      navigate
+    );
   };
 
   return (
@@ -132,7 +106,7 @@ const Login = ({ setCurrentUser }) => {
             <div className="mt-4 text-center">
               <p className="text-white">Do not have an account?</p>
               <button className="form__btn py-3 w-[60%] mt-2 rounded-md bg-transparent bg-gradient-to-r from-pink-500 to-yellow-500 transition duration-150 ease-in text-center text-white">
-                <Link  to="/register">
+                <Link to="/register">
                   <p>Create an account</p>
                 </Link>
               </button>
