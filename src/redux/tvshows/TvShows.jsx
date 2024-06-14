@@ -7,7 +7,6 @@ import {
   selectAllShows,
   fetchShows,
   selectStatus,
-  selectError,
 } from "./showsSlice";
 
 //COMPONENTS
@@ -19,11 +18,10 @@ const TvShows = () => {
   const shows = useSelector(selectAllShows);
   const dispatch = useDispatch();
   const showStatus = useSelector(selectStatus);
-  const showError = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchShows());
-  }, []);
+  }, [dispatch]);
 
   const content = shows.map((show) => <ShowCard key={show.id} prop={show} />);
 

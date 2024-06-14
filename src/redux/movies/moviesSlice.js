@@ -5,6 +5,7 @@ const initialState = {
   search: "",
   totalResults: 0,
   pages: 0,
+  currentPage: 1,
   genres: [],
   nowPlayingMovies: [],
   status: "idle",
@@ -26,11 +27,13 @@ const moviesOptions = {
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async (body) => {
+  async ( body, { getState}) => {
+    const state = getState()
+    let currentPage = state.movies.currentPage
     if (body) {
       const response = await axios.request({
         method: "GET",
-        url: `${searchMoviesURL}?query=${body.searchValue}`,
+        url: `${searchMoviesURL}?query=${body.searchValue}&page=${currentPage}`,
         headers: {
           accept: "application/json",
           Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`,
@@ -101,24 +104,6 @@ export const fetchNowPlayingMovies = createAsyncThunk(
   }
 );
 
-/********************************** FETCH MOVIE SEARCH   *****************************/
-// const searchMoviesURL = "https://api.themoviedb.org/3/search/movie";
-
-// export const fetchSearchMovies = createAsyncThunk(
-//   "movies/fetchSearchMovies",
-//   async (searchValue) => {
-//     const response = await axios.request({
-//       method: "GET",
-//       url: `${searchMoviesURL}?query=${searchValue}`,
-//       headers: {
-//         accept: "application/json",
-//         Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`,
-//       },
-//     });
-//     const data = await response.data;
-//     return data;
-//   }
-// );
 export const moviesSlice = createSlice({
   name: "movies",
   initialState,
@@ -134,6 +119,15 @@ export const moviesSlice = createSlice({
       });
       return { ...state, movies: sortedMovies };
     },
+    setCurrentPage: (state) => {
+      state.currentPage = 1
+    },
+    nextPage: (state) => {
+      state.currentPage += 1
+    },
+    previousPage: (state) => {
+      state.currentPage -= 1
+    }
   },
   extraReducers(builder) {
     builder
@@ -196,6 +190,7 @@ export const selectStatus = (state) => state.movies.status;
 export const selectError = (state) => state.movies.error;
 export const selectAllMovies = (state) => state.movies.movies;
 export const selectPages = (state) => state.movies.pages;
+export const selectCurrentPage = (state) => state.movies.currentPage;
 export const selectTotalResults = (state) => state.movies.totalResults;
 export const selectSearchValue = (state) => state.movies.search;
 export const selectGenres = (state) => state.movies.genres;
@@ -205,6 +200,6 @@ export const selectMovieById = (state, movieId) =>
   state.movies.movies.find((movie) => movie.id === movieId);
 export const selectNowPlayingMovieById = (state, movieId) =>
   state.movies.nowPlayingMovies.find((movie) => movie.id === movieId);
-export const { sortMovies } = moviesSlice.actions;
+export const { sortMovies, nextPage, previousPage, setCurrentPage } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

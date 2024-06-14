@@ -1,5 +1,5 @@
 // REACT
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 // REACT DOM
 import { useParams } from "react-router-dom";
@@ -39,7 +39,7 @@ const MovieSinglePage = () => {
     //MODIFY THIS TO FETCH SINGLE MOVIE BASED ON ID
     dispatch(fetchGenres(movieGenres));
     // dispatch(fetchMovies());
-  }, []);
+  }, [dispatch, movieGenres]);
 
   const backdropUrl = singleMovie.backdrop_path
     ? `https://image.tmdb.org/t/p/w500${singleMovie.backdrop_path}`

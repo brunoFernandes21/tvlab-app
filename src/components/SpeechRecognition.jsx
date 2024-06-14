@@ -17,7 +17,7 @@ const Speech = ({ handleTranscript }) => {
     if (transcript && !listening) {
       handleTranscript(transcript);
     }
-  }, [transcript, listening]);
+  }, [transcript, listening, handleTranscript]);
 
   //this will make it so we only stop listening when stop button is clicked
 //   const startListening = () => SpeechRecognition.startListening({ continuous: true });
@@ -25,7 +25,7 @@ const Speech = ({ handleTranscript }) => {
 //   SpeechRecognition.startListening
 
   if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
+    return <span>Browser doesn`&lsquo;`t support speech recognition.</span>;
   }
 
   return (
@@ -38,15 +38,6 @@ const Speech = ({ handleTranscript }) => {
       >
         <FaMicrophone className={listening ? "text-green-600 text-xl" : "text-red-600 text-xl"}/>
       </button>
-      {/* <button
-        className="bg-white rounded-full p-2"
-        onClick={SpeechRecognition.stopListening}
-      >
-       <FaMicrophone className="text-red-600 text-xl"/>
-      </button> */}
-      {/* <button className="bg-white rounded-full p-2" onClick={resetTranscript}>
-      <GrPowerReset className="text-black text-xl"/>
-      </button> */}
     </div>
   );
 };

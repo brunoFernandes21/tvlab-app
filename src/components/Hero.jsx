@@ -7,7 +7,6 @@ import {
   fetchNowPlayingMovies,
   selectAllNowPlayingMovies,
   selectStatus,
-  selectError,
 } from "../redux/movies/moviesSlice";
 
 //SWIPER PACKAGE
@@ -22,11 +21,10 @@ const Hero = () => {
   const dispatch = useDispatch();
   const nowPlayingMovies = useSelector(selectAllNowPlayingMovies);
   const movieStatus = useSelector(selectStatus);
-  const movieError = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchNowPlayingMovies());
-  }, []);
+  }, [dispatch]);
 
   const nowPlaying = nowPlayingMovies.map((movie) => (
     <swiper-slide key={movie.id}>

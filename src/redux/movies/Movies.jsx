@@ -7,7 +7,6 @@ import {
   selectAllMovies,
   fetchMovies,
   selectStatus,
-  selectError,
 } from "./moviesSlice";
 
 // COMPONENTS
@@ -19,11 +18,10 @@ const Movies = () => {
   const movies = useSelector(selectAllMovies);
   const dispatch = useDispatch();
   const movieStatus = useSelector(selectStatus);
-  const movieError = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchMovies());
-  }, []);
+  }, [dispatch]);
 
   const content = movies.map((movie) => (
     <MovieCard key={movie.id} prop={movie} />

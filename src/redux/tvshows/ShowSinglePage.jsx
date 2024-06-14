@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchShows,fetchGenres,selectGenres, selectShowById, selectStatus } from "./showsSlice";
+import { fetchGenres,selectGenres, selectShowById, selectStatus } from "./showsSlice";
 import Spinner from "../../components/Spinner";
 import {
-  FaExclamationTriangle,
   FaArrowCircleLeft,
   FaStar,
 } from "react-icons/fa";
@@ -19,7 +18,7 @@ const ShowSinglePage = () => {
   const ShowStatus = useSelector(selectStatus);
   useEffect(() => {
     dispatch(fetchGenres(showGenres));
-  }, []);
+  }, [dispatch, showGenres]);
 
   // if (!show) {
   //   return (
