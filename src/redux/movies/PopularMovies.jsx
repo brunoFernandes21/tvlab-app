@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllMovies,
   selectPages,
+  // selectInitialDataObject,
   selectCurrentPage,
   selectTotalResults,
   fetchMovies,
@@ -28,7 +29,11 @@ import SearchBox from "../../components/SearchBox";
 import Pagination from "../../components/Pagination";
 
 const PopularMovies = () => {
-  // movies state selection
+
+  //Initial data object 
+  // const initialMoviesObject = useSelector(selectInitialDataObject)
+
+  // Search results 
   const popularMovies = useSelector(selectAllMovies);
   const dispatch = useDispatch();
   const movieStatus = useSelector(selectStatus);
@@ -36,6 +41,7 @@ const PopularMovies = () => {
   const moviesPages = useSelector(selectPages);
   const moviesCurrentPage = useSelector(selectCurrentPage);
   const moviesTotalResults = useSelector(selectTotalResults);
+
 
   // shows state selection
   const shows = useSelector(selectAllShows);
@@ -57,6 +63,8 @@ const PopularMovies = () => {
       };
     });
   };
+
+  console.log(popularMovies, "popularMovies");
 
   const searchMoviesAndShows = (event) => {
     event.preventDefault();
@@ -80,10 +88,12 @@ const PopularMovies = () => {
     }
   };
 
+
   const content =
     searchForm.searchValue && searchForm.type === "shows"
       ? shows
       : popularMovies;
+      
   let resultDisplay = "";
   const filteredContent = content.filter((item) => {
     if (item.name) {
@@ -100,7 +110,9 @@ const PopularMovies = () => {
   });
   const displayContent = filteredContent.map((movie) => (
     <MovieCard key={movie.id} prop={movie} />
-  ));
+    ));
+  console.log(displayContent, "content");
+
   const moviesProps = {
     moviesCurrentPage,
     moviesPages,
@@ -133,7 +145,7 @@ const PopularMovies = () => {
           moviesTotalResults > 0 &&
           movieSearchedValue !== "" && (
             <p className="uppercase text-lg md:text-lx lg:text-2xl">
-              {content.length} results of {moviesTotalResults} for{" "}
+              {displayContent.length} results of {moviesTotalResults} for{" "}
               {movieSearchedValue}
             </p>
           )}
@@ -141,35 +153,37 @@ const PopularMovies = () => {
           showsTotalResults > 0 &&
           showsSearchedValue !== "" && (
             <p className="font-bold text-lg md:text-lx lg:text-2xl">
-              {content.length} results of {showsTotalResults} for{" "}
+              {displayContent.length} results of {showsTotalResults} for{" "}
               {showsSearchedValue.charAt(0).toUpperCase() +
                 showsSearchedValue.slice(1)}
             </p>
           )}
+          {}
       </div>
       {movieStatus === "loading" && (
         <Spinner text="Loading" loading={movieStatus} />
       )}
       <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto px-2 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10 rounded-lg ">
-        {movieStatus === "succeeded" && displayContent}
-        {popularMovies.length === 0 && (
-          <p className="text-xl mx-auto">Unable to find movies</p>
-        )}
-        {movieStatus === "failed" && (
-          <p className="text-xl mx-auto">Unable to find movies</p>
-        )}
+        {displayContent.length > 0 && displayContent}
       </div>
+        {displayContent.length === 0 && searchForm.type === "" && (
+          <p className="text-xl mx-auto text-center">Unable to find movies. Select type and click search to search in the API</p>
+        )}
       <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto px-2 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10">
-        {movieSearchedValue !== "" && (
+        {displayContent.length > 0 && (
           <Pagination
             moviesProps={moviesProps}
             resultDisplay={resultDisplay}
             searchMoviesAndShows={searchMoviesAndShows}
           />
         )}
-        {searchForm.type === "shows" && shows.length === 0 && (
+        {showsSearchedValue && searchForm.type === "shows" && displayContent.length === 0 && (
           <p className="text-xl mx-auto">Unable to find shows</p>
         )}
+        {movieSearchedValue && searchForm.type === "movies" && displayContent.length === 0 && (
+          <p className="text-xl mx-auto">Unable to find movies</p>
+        )}
+
       </div>
     </section>
   );

@@ -2,9 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const initialState = {
   movies: [],
+  initialDataObject: {},//this will contain the returned data at first render
   search: "",
-  totalResults: 0,
-  pages: 0,
+  totalResults: 1,
+  pages: 1,
   currentPage: 1,
   genres: [],
   nowPlayingMovies: [],
@@ -50,7 +51,13 @@ export const fetchMovies = createAsyncThunk(
     } else {
       const response = await axios.request(moviesOptions);
       const data = await response.data;
-      return data.results;
+
+      const firstRenderData = {
+        renderedMovies: data.results,
+        returnedObject: data
+      }
+      // console.log(firstRenderData);
+      return firstRenderData;
     }
   }
 );
@@ -139,21 +146,23 @@ export const moviesSlice = createSlice({
 
         const movies = action.payload.movies
           ? action.payload.movies
-          : action.payload;
+          : action.payload.renderedMovies;
         state.movies = [...movies];
-
+        state.initialDataObject = {...action.payload.returnedObject}
+        console.log(state.initialDataObject, "initial render datea");
+        
         const title = action.payload.search ? action.payload.search : "";
         state.search = title;
 
         const pages = action.payload.responseObject
           ? action.payload.responseObject.total_pages
-          : 0;
+          : action.payload.returnedObject.total_pages;
         state.pages = pages;
 
-        const total_results = action.payload.responseObject
+        const totalResults = action.payload.responseObject
           ? action.payload.responseObject.total_results
-          : 0;
-        state.totalResults = total_results;
+          : action.payload.returnedObject.total_results;
+        state.totalResults = totalResults;
       })
       .addCase(fetchMovies.rejected, (state, action) => {
         state.status = "failed";
