@@ -22,7 +22,7 @@ const MovieCard = ({ prop }) => {
               className="rounded-md"
             />
           </div>
-          <div className="border border-slate-600 my-4"></div>
+          <div className="my-4"></div>
           <div className="pb-2 px-2 truncate">
             <h1 className="lg:text-lg truncate">
               <strong>{title}</strong>

@@ -17,9 +17,9 @@ const Pagination = ({
   const moviesPages = useSelector(selectPages);
   const moviesCurrentPage = useSelector(selectCurrentPage);
   const moviesTotalResults = useSelector(selectTotalResults);
+
   const initialCurrentPage = initialMoviesObject.page;
   const totalPages = initialMoviesObject.total_pages;
-  console.log(totalPages);
   const disablePrev = moviesCurrentPage === 1;
   const disableNext = moviesCurrentPage === moviesPages;
 
@@ -65,12 +65,12 @@ const Pagination = ({
         moviesTotalResults > 0 &&
         movieSearchedValue !== "" && (
           <p className="uppercase text-lg md:text-lx lg:text-2xl">
-            {moviesCurrentPage} of {moviesPages}
+            {moviesCurrentPage} of {moviesPages} pages
           </p>
         )}
       {totalPages && (
         <p className="uppercase text-lg md:text-lx lg:text-2xl">
-          {initialCurrentPage} of {totalPages}
+          {initialCurrentPage} of {totalPages} pages
         </p>
       )}
     </div>

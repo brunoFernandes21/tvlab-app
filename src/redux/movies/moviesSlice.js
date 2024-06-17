@@ -56,7 +56,6 @@ export const fetchMovies = createAsyncThunk(
         renderedMovies: data.results,
         returnedObject: data
       }
-      // console.log(firstRenderData);
       return firstRenderData;
     }
   }

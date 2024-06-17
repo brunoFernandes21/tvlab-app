@@ -144,7 +144,7 @@ const PopularMovies = () => {
           moviesTotalResults > 0 &&
           movieSearchedValue !== "" && (
             <p className="uppercase text-lg md:text-lx lg:text-2xl">
-              {displayContent.length} of {moviesTotalResults} todal results for{" "}
+              {displayContent.length} of {moviesTotalResults} total results for{" "}
               {movieSearchedValue}
             </p>
           )}

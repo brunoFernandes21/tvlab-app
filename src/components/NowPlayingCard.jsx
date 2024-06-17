@@ -20,7 +20,7 @@ const NowPlayingCard = ({ movie }) => {
               className="rounded-md"
             />
           </div>
-          <div className="border border-slate-600 my-4"></div>
+          <div className=" my-4"></div>
           <div className="px-2 mt-2">
             <h1 className="lg:text-lg truncate ">
               <strong>{movie.title}</strong>
