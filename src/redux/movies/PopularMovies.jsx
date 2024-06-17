@@ -5,9 +5,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllMovies,
-  selectPages,
-  // selectInitialDataObject,
-  selectCurrentPage,
+  selectInitialMoviesData,
   selectTotalResults,
   fetchMovies,
   selectStatus,
@@ -30,16 +28,16 @@ import Pagination from "../../components/Pagination";
 
 const PopularMovies = () => {
 
-  //Initial data object 
-  // const initialMoviesObject = useSelector(selectInitialDataObject)
+  // //Initial data object 
+  const initialMoviesObject = useSelector(selectInitialMoviesData)
+  const moviesPerPage = initialMoviesObject.results;
+  const initialResults = initialMoviesObject.total_results
 
   // Search results 
   const popularMovies = useSelector(selectAllMovies);
   const dispatch = useDispatch();
   const movieStatus = useSelector(selectStatus);
   const movieSearchedValue = useSelector(selectSearchValue);
-  const moviesPages = useSelector(selectPages);
-  const moviesCurrentPage = useSelector(selectCurrentPage);
   const moviesTotalResults = useSelector(selectTotalResults);
 
 
@@ -64,13 +62,17 @@ const PopularMovies = () => {
     });
   };
 
-  console.log(popularMovies, "popularMovies");
 
   const searchMoviesAndShows = (event) => {
     event.preventDefault();
+
     if(movieSearchedValue !== searchForm.searchValue) {
       dispatch(setCurrentPage())
     }
+    if(initialMoviesObject) {
+      dispatch(fetchMovies())
+    }
+
     if (searchForm.searchValue && searchForm.type === "movies") {
       dispatch(
         fetchMovies({
@@ -78,14 +80,14 @@ const PopularMovies = () => {
           type: searchForm.type,
         })
       );
-    } else {
+    } else if (searchForm.searchValue && searchForm.type === "shows") {
       dispatch(
         fetchShows({
           searchValue: searchForm.searchValue,
           type: searchForm.type,
         })
       );
-    }
+    } 
   };
 
 
@@ -111,15 +113,7 @@ const PopularMovies = () => {
   const displayContent = filteredContent.map((movie) => (
     <MovieCard key={movie.id} prop={movie} />
     ));
-  console.log(displayContent, "content");
 
-  const moviesProps = {
-    moviesCurrentPage,
-    moviesPages,
-    resultDisplay,
-    moviesTotalResults,
-    movieSearchedValue,
-  };
   const showsProps = {
     showsSearchedValue,
     showsPages,
@@ -141,11 +135,16 @@ const PopularMovies = () => {
         />
       )}
       <div className="container grid mx-auto px-2 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10">
+        {initialResults && searchForm.searchValue === "" && (
+           <p className="uppercase text-lg md:text-lx lg:text-2xl">
+          {moviesPerPage.length} of {initialResults} total results
+         </p>
+        )}
         {resultDisplay === "movies" &&
           moviesTotalResults > 0 &&
           movieSearchedValue !== "" && (
             <p className="uppercase text-lg md:text-lx lg:text-2xl">
-              {displayContent.length} results of {moviesTotalResults} for{" "}
+              {displayContent.length} of {moviesTotalResults} todal results for{" "}
               {movieSearchedValue}
             </p>
           )}
@@ -172,7 +171,7 @@ const PopularMovies = () => {
       <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto px-2 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10">
         {displayContent.length > 0 && (
           <Pagination
-            moviesProps={moviesProps}
+          initialMoviesObject={initialMoviesObject}
             resultDisplay={resultDisplay}
             searchMoviesAndShows={searchMoviesAndShows}
           />

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const initialState = {
   movies: [],
-  initialDataObject: {},//this will contain the returned data at first render
+  initialDataObject: {},//this will contain the returned data from first render
   search: "",
   totalResults: 1,
   pages: 1,
@@ -17,14 +17,6 @@ const initialState = {
 
 const moviesURL = "https://api.themoviedb.org/3/discover/movie";
 const searchMoviesURL = "https://api.themoviedb.org/3/search/movie";
-const moviesOptions = {
-  method: "GET",
-  url: moviesURL,
-  headers: {
-    accept: "application/json",
-    Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`,
-  },
-};
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
@@ -49,7 +41,15 @@ export const fetchMovies = createAsyncThunk(
       };
       return returnedValue;
     } else {
-      const response = await axios.request(moviesOptions);
+      let currentPage = state.movies.currentPage
+      const response = await axios.request({
+        method: "GET",
+        url: `${moviesURL}?page=${currentPage}`,
+        headers: {
+          accept: "application/json",
+          Authorization: `${import.meta.env.VITE_REACT_APP_API_KEY}`,
+        },
+      });
       const data = await response.data;
 
       const firstRenderData = {
@@ -62,7 +62,6 @@ export const fetchMovies = createAsyncThunk(
   }
 );
 
-/*****************************************FETCH MOVIE BY ID ****************************/
 
 
 /********************************** FETCH MOVIE GENRES *****************************/
@@ -148,8 +147,8 @@ export const moviesSlice = createSlice({
           ? action.payload.movies
           : action.payload.renderedMovies;
         state.movies = [...movies];
+
         state.initialDataObject = {...action.payload.returnedObject}
-        console.log(state.initialDataObject, "initial render datea");
         
         const title = action.payload.search ? action.payload.search : "";
         state.search = title;
@@ -198,6 +197,7 @@ export const moviesSlice = createSlice({
 export const selectStatus = (state) => state.movies.status;
 export const selectError = (state) => state.movies.error;
 export const selectAllMovies = (state) => state.movies.movies;
+export const selectInitialMoviesData = (state) => state.movies.initialDataObject
 export const selectPages = (state) => state.movies.pages;
 export const selectCurrentPage = (state) => state.movies.currentPage;
 export const selectTotalResults = (state) => state.movies.totalResults;

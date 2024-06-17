@@ -1,34 +1,37 @@
 import { useDispatch, useSelector } from "react-redux";
 import { nextPage, previousPage } from "../redux/movies/moviesSlice";
 import {
-    selectPages,
-    selectCurrentPage,
-    selectTotalResults,
-    selectSearchValue,
-  } from "./../redux/movies/moviesSlice";
+  fetchMovies,
+  selectPages,
+  selectCurrentPage,
+  selectTotalResults,
+  selectSearchValue,
+} from "./../redux/movies/moviesSlice";
 const Pagination = ({
-    resultDisplay,
-    searchMoviesAndShows
+  resultDisplay,
+  searchMoviesAndShows,
+  initialMoviesObject,
 }) => {
-
   const dispatch = useDispatch();
   const movieSearchedValue = useSelector(selectSearchValue);
   const moviesPages = useSelector(selectPages);
   const moviesCurrentPage = useSelector(selectCurrentPage);
   const moviesTotalResults = useSelector(selectTotalResults);
+  const initialCurrentPage = initialMoviesObject.page;
+  const totalPages = initialMoviesObject.total_pages;
+  console.log(totalPages);
   const disablePrev = moviesCurrentPage === 1;
   const disableNext = moviesCurrentPage === moviesPages;
 
   const handlePageChange = async (event, param) => {
     if (param === "next") {
       dispatch(nextPage());
-      searchMoviesAndShows(event)
+      searchMoviesAndShows(event);
     } else {
-        dispatch(previousPage())
-        searchMoviesAndShows(event)
+      dispatch(previousPage());
+      searchMoviesAndShows(event);
     }
   };
-
 
   return (
     <div className="flex flex-col">
@@ -65,6 +68,11 @@ const Pagination = ({
             {moviesCurrentPage} of {moviesPages}
           </p>
         )}
+      {totalPages && (
+        <p className="uppercase text-lg md:text-lx lg:text-2xl">
+          {initialCurrentPage} of {totalPages}
+        </p>
+      )}
     </div>
   );
 };
