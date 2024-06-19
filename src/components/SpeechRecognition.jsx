@@ -13,11 +13,11 @@ const Speech = ({ handleTranscript }) => {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
-  // useEffect(() => {
+  useEffect(() => {
     if (transcript && !listening) {
       handleTranscript(transcript);
     }
-  // }, [transcript, listening, handleTranscript]);
+  }, [transcript, listening, handleTranscript]);
 
   //this will make it so we only stop listening when stop button is clicked
 //   const startListening = () => SpeechRecognition.startListening({ continuous: true });
