@@ -25,6 +25,8 @@ import Spinner from "../../components/Spinner";
 import MovieCard from "../../components/ContentCard";
 import SearchBox from "../../components/SearchBox";
 import Pagination from "../../components/Pagination";
+
+import { toast } from "react-toastify";
 const PopularMovies = () => {
   // //Initial data object
   const initialMoviesObject = useSelector(selectInitialMoviesData);
@@ -58,34 +60,46 @@ const PopularMovies = () => {
       };
     });
   };
-  const searchMoviesAndShows = (event) => {
-    event.preventDefault();
-    // if(searchForm.searchValue === "" || searchForm.type === "") {
-    //   alert("Please Enter Title And Select Type!")
-    //   return
-    // }
 
-    if (movieSearchedValue !== searchForm.searchValue) {
-      dispatch(setCurrentPage());
-    }
-    if (initialMoviesObject) {
-      dispatch(fetchMovies());
-    }
-
-    if (searchForm.searchValue && searchForm.type === "movies") {
-      dispatch(
-        fetchMovies({
-          searchValue: searchForm.searchValue,
-          type: searchForm.type,
-        })
-      );
-    } else if (searchForm.searchValue && searchForm.type === "shows") {
+  const contentType = (type = "movies") => {
+    if (type === "shows") {
       dispatch(
         fetchShows({
           searchValue: searchForm.searchValue,
           type: searchForm.type,
         })
       );
+      return
+    }
+    dispatch(
+      fetchMovies({
+        searchValue: searchForm.searchValue,
+        type: searchForm.type,
+      })
+    );
+
+
+  };
+
+  const searchMoviesAndShows = (event, param) => {
+    event.preventDefault();
+
+    if (movieSearchedValue !== searchForm.searchValue) {
+      dispatch(setCurrentPage());
+    }
+
+    if (param && searchForm.searchValue === "") {
+      dispatch(fetchMovies());
+    } else {
+      if (searchForm.searchValue === "" || searchForm.type === "") {
+        toast.error("Please Enter Title And Select Type!");
+        return;
+      }
+    }
+    if (searchForm.searchValue && searchForm.type === "movies") {
+      contentType();
+    } else {
+      contentType("shows");
     }
   };
 
@@ -175,7 +189,7 @@ const PopularMovies = () => {
           <Pagination
             initialMoviesObject={initialMoviesObject}
             resultDisplay={resultDisplay}
-            searchMoviesAndShows={searchMoviesAndShows}
+            pageChange={searchMoviesAndShows}
           />
         )}
         {showsSearchedValue &&

@@ -11,7 +11,7 @@ import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 
 const Pagination = ({
   resultDisplay,
-  searchMoviesAndShows,
+  pageChange,
   initialMoviesObject,
 }) => {
   const dispatch = useDispatch();
@@ -28,10 +28,10 @@ const Pagination = ({
   const handlePageChange = async (event, param) => {
     if (param === "next") {
       dispatch(nextPage());
-      searchMoviesAndShows(event);
+      pageChange(event, "next");
     } else {
       dispatch(previousPage());
-      searchMoviesAndShows(event);
+      pageChange(event, "prev");
     }
   };
 
