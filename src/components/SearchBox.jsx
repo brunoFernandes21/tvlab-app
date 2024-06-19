@@ -5,8 +5,12 @@ import Speech from "./SpeechRecognition";
 import { FaSearch } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 
-const SearchBox = ({ handleChange, searchForm, setSearchForm, searchMovies }) => {
-
+const SearchBox = ({
+  handleChange,
+  searchForm,
+  setSearchForm,
+  searchMovies,
+}) => {
   const handleTranscript = (transcript) => {
     setSearchForm((prevState) => {
       return {
@@ -14,27 +18,44 @@ const SearchBox = ({ handleChange, searchForm, setSearchForm, searchMovies }) =>
         searchValue: transcript
       }
     })
-  }
+  };
 
   return (
-    <>
+    <div className="max-w-2xl w-full md:w-[450px] mx-auto px-2 md:px-6 lg:px-8">
+      <div className="flex items-center gap-8 justify-center md:justify-start">
+        <div className="flex items-center gap-2">
+          <label htmlFor="movies" className="text-lg">
+            Movies
+          </label>
+          <input
+            type="radio"
+            name="type"
+            id="movies"
+            value="movies"
+            onChange={handleChange}
+            checked={searchForm.type === "movies"}
+            className="mb-2"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <label htmlFor="shows" className="text-lg">
+            Shows
+          </label>
+          <input
+            type="radio"
+            name="type"
+            id="shows"
+            value="shows"
+            onChange={handleChange}
+            checked={searchForm.type === "shows"}
+            className="mb-2"
+          />
+        </div>
+      <Speech handleTranscript={handleTranscript} />
+      </div>
       <form
-        className="max-w-2xl w-full md:w-[450px] mx-auto px-2 md:px-6 lg:px-8"
         onSubmit={searchMovies}
       >
-        <div className="flex items-center gap-8 justify-center md:justify-start">
-          <div className="flex items-center gap-2">
-            <label htmlFor="movies" className="text-lg">Movies</label>
-            <input type="radio" name="type" id="movies" value="movies" onChange={handleChange} checked={searchForm.type === "movies"} className="mb-2"/>
-          </div>
-          <div className="flex items-center gap-2">
-            <label htmlFor="shows" className="text-lg">Shows</label>
-            <input type="radio" name="type" id="shows" value="shows" onChange={handleChange} checked={searchForm.type === "shows"}  className="mb-2"/>
-          </div>
-          <Speech handleTranscript={handleTranscript} />
-        </div>
-        <div>
-        </div>
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <FaSearch
@@ -51,16 +72,21 @@ const SearchBox = ({ handleChange, searchForm, setSearchForm, searchMovies }) =>
             value={searchForm.searchValue}
             onChange={handleChange}
           />
-          {searchForm.searchValue && <IoMdCloseCircle className="absolute cursor-pointer -mt-14 right-4 text-xl text-orange-500 " onClick={() => setSearchForm({searchValue: "", type: ""})}/> }
+          {searchForm.searchValue && (
+            <IoMdCloseCircle
+              className="absolute cursor-pointer -mt-14 right-4 text-xl text-orange-500 "
+              onClick={() => setSearchForm({ searchValue: "", type: "" })}
+            />
+          )}
           <button
-            type="submit"
+            // onClick={searchMovies}
             className="text-white absolute right-2 md:-right-24 bottom-3 md:bottom-[5px] bg-orange-400 hover:bg-orange-700 focus:ring-2 focus:outline-none focus:ring-orange-400 font-semibold rounded-lg text-sm p-2 md:px-4 md:py-3 transition-all duration-500 "
           >
             Search
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -17,7 +17,7 @@ const NowPlayingCard = ({ movie }) => {
             <img
               src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : "/movie.jpg"}
               alt="Image not available"
-              className="rounded-md"
+              className="rounded-t-md"
             />
           </div>
           <div className=" my-4"></div>

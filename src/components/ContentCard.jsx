@@ -15,11 +15,11 @@ const MovieCard = ({ prop }) => {
     <section className=" bg-slate-900 rounded-lg transition-all ease-in-out duration-500 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] hover:shadow-blue-400 hover:scale-105 hover:border-4 hover:border-slate-300">
       <div>
         <Link to={prop.title ? `/movies/${prop.id}` : `/tv-shows/${prop.id}`}>
-          <div>
+          <div className="min-h-[530px]">
             <img
               src={prop.poster_path ? `https://image.tmdb.org/t/p/w500/${prop.poster_path}` : "/original-poster.png"}
               alt="Image not available"
-              className="rounded-md"
+              className="rounded-t-md"
             />
           </div>
           <div className="my-4"></div>

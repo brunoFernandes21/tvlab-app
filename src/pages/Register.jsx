@@ -10,6 +10,8 @@ import { userRegistration, googleRegistration, validatePassword } from "../utils
 //ICONS
 import { FcGoogle } from "react-icons/fc";
 
+import { toast } from "react-toastify";
+
 const Register = ({ setCurrentUser }) => {
   const [loading, setLoading] = useState(false);
   const [passwordError, setPasswordError] = useState(null);

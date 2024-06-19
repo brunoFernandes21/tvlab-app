@@ -1,10 +1,10 @@
-// REACT 
+// REACT
 import { useEffect, useState } from "react";
 
-// REACT ROUTER 
+// REACT ROUTER
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-// REDUX 
+// REDUX
 import Movies from "./redux/movies/Movies";
 import MovieSinglePage from "./redux/movies/MovieSinglePage";
 import ShowSinglePage from "./redux/tvshows/ShowSinglePage";
@@ -15,7 +15,7 @@ import { auth } from "./firebase/firebase.js";
 import { signOut } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 
-// COMPONENTS 
+// COMPONENTS
 import { ProtectedRoutes } from "../src/ProtectedRoutes";
 import { UnProtectedRoutes } from "../src/UnprotectedRoutes";
 import Header from "./components/Header";
@@ -23,44 +23,56 @@ import ScrollToTop from "./components/ScrollToTop";
 import MobileNavigation from "./components/MobileNavigation.jsx";
 import Background from "./components/Background.jsx";
 
-// PAGES 
+// PAGES
 import Homepage from "./pages/Homepage";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 
+//EXTERNAL PACKAGES
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [showNav, setShowNav] = useState(false);
   const navigate = useNavigate();
 
-
-//prevent user from logging out after page refresh
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    if(currentUser) {
-      setCurrentUser(currentUser)
-    } else {
-      setCurrentUser(null)
-    }
-  }) 
-  return unsubscribe
-}, [currentUser])
+  //prevent user from logging out after page refresh
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setCurrentUser(currentUser);
+      } else {
+        setCurrentUser(null);
+      }
+    });
+    return unsubscribe;
+  }, [currentUser]);
 
   const logout = async () => {
     await signOut(auth);
-    navigate("/login")
+    navigate("/login");
     setCurrentUser(null);
   };
 
-
   return (
     <div className={`${showNav ? "show__nav" : ""} app`}>
-    <Background showNav={showNav} />
-      <Header currentUser={currentUser} logout={logout} setShowNav={setShowNav}/>
-      {showNav && <MobileNavigation currentUser={currentUser} showNav={showNav} setShowNav={setShowNav} logout={logout}/>}
+      <Background showNav={showNav} />
+      <Header
+        currentUser={currentUser}
+        logout={logout}
+        setShowNav={setShowNav}
+      />
+      {showNav && (
+        <MobileNavigation
+          currentUser={currentUser}
+          showNav={showNav}
+          setShowNav={setShowNav}
+          logout={logout}
+        />
+      )}
       <ScrollToTop>
         <Routes>
           {/* Protected Routes */}
@@ -118,9 +130,7 @@ useEffect(() => {
             path="/register"
             element={
               <UnProtectedRoutes user={currentUser}>
-                <Register
-                  setCurrentUser={setCurrentUser}
-                />
+                <Register setCurrentUser={setCurrentUser} />
               </UnProtectedRoutes>
             }
           />
@@ -128,9 +138,7 @@ useEffect(() => {
             path="/login"
             element={
               <UnProtectedRoutes>
-                <Login
-                  setCurrentUser={setCurrentUser}
-                />
+                <Login setCurrentUser={setCurrentUser} />
               </UnProtectedRoutes>
             }
           />
@@ -138,6 +146,20 @@ useEffect(() => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ScrollToTop>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rejected
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition:Bounce
+      />
     </div>
   );
 }

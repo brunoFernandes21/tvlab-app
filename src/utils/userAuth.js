@@ -1,4 +1,6 @@
 import { auth, db } from "../firebase/firebase";
+import { toast } from "react-toastify";
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -87,7 +89,7 @@ export const userRegistration = async (
       navigate("/");
     }
   } catch (error) {
-    setDbError(error.message);
+    setDbError("Password should be at least 6 characters");
     setLoading(false);
     setTimeout(() => {
       setDbError(null);

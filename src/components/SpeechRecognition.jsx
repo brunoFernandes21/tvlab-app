@@ -13,11 +13,11 @@ const Speech = ({ handleTranscript }) => {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
-  useEffect(() => {
+  // useEffect(() => {
     if (transcript && !listening) {
       handleTranscript(transcript);
     }
-  }, [transcript, listening, handleTranscript]);
+  // }, [transcript, listening, handleTranscript]);
 
   //this will make it so we only stop listening when stop button is clicked
 //   const startListening = () => SpeechRecognition.startListening({ continuous: true });
@@ -36,7 +36,9 @@ const Speech = ({ handleTranscript }) => {
         onMouseDown={SpeechRecognition.startListening}
         onMouseUp={SpeechRecognition.stopListening}
       >
-        <FaMicrophone className={listening ? "text-green-600 text-xl" : "text-red-600 text-xl"}/>
+        <FaMicrophone 
+        className={listening ? "text-green-600 text-xl" : "text-red-600 text-xl"}
+        />
       </button>
     </div>
   );

@@ -7,6 +7,8 @@ import {
   selectTotalResults,
   selectSearchValue,
 } from "./../redux/movies/moviesSlice";
+import { FaGreaterThan, FaLessThan } from "react-icons/fa";
+
 const Pagination = ({
   resultDisplay,
   searchMoviesAndShows,
@@ -35,44 +37,45 @@ const Pagination = ({
 
   return (
     <div className="flex flex-col">
-      <div className="flex gap-2 mb-2">
+      <div className="flex items-center gap-2">
         <button
           type="button"
           onClick={(event) => handlePageChange(event, "prev")}
           disabled={disablePrev}
-          className={` border rounded px-3 py-2 ${
+          className={`flex items-center gap-2 text-lg border rounded px-3 py-2 ${
             disablePrev
               ? "bg-gray-200 text-gray-500 font-bold"
               : " cursor-pointer hover:bg-white hover:text-black hover:font-bold transition-all ease-in-out duration-500"
           } `}
         >
-          Previous page
+          <FaLessThan />
+          Previous
         </button>
+        {totalPages && (
+          <p className="uppercase text-lg md:text-lx">
+            {initialCurrentPage} of {totalPages}
+          </p>
+        )}
+        {resultDisplay === "movies" &&
+          moviesTotalResults > 0 &&
+          movieSearchedValue !== "" && (
+            <p className="uppercase text-lg md:text-lx">
+              {moviesCurrentPage} of {moviesPages}
+            </p>
+          )}
         <button
           type="button"
           onClick={(event) => handlePageChange(event, "next")}
           disabled={disableNext}
-          className={` border rounded px-3 py-2 ${
+          className={`flex items-center gap-2 text-lg border rounded px-3 py-2 ${
             disableNext
               ? "bg-gray-200 text-gray-500 font-bold"
               : " cursor-pointer hover:bg-white hover:text-black hover:font-bold transition-all ease-in-out duration-500"
           } `}
         >
-          Next page
+           Next <FaGreaterThan />
         </button>
       </div>
-      {resultDisplay === "movies" &&
-        moviesTotalResults > 0 &&
-        movieSearchedValue !== "" && (
-          <p className="uppercase text-lg md:text-lx lg:text-2xl">
-            {moviesCurrentPage} of {moviesPages} pages
-          </p>
-        )}
-      {totalPages && (
-        <p className="uppercase text-lg md:text-lx lg:text-2xl">
-          {initialCurrentPage} of {totalPages} pages
-        </p>
-      )}
     </div>
   );
 };

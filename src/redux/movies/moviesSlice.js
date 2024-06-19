@@ -39,6 +39,8 @@ export const fetchMovies = createAsyncThunk(
         movies: data.results,
         responseObject: data,
       };
+         // TODO: NEED TO CHECK WHY THIS IS NOT RETURNING ONLY DATA CONTAINING SEARCH KEYWORD
+         console.log(returnedValue.movies, "movies return from search");
       return returnedValue;
     } else {
       let currentPage = state.movies.currentPage
@@ -56,6 +58,8 @@ export const fetchMovies = createAsyncThunk(
         renderedMovies: data.results,
         returnedObject: data
       }
+   
+      console.log(firstRenderData.renderedMovies, "movie results when first render");
       return firstRenderData;
     }
   }
