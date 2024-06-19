@@ -33,6 +33,7 @@ import Login from "./pages/Login";
 //EXTERNAL PACKAGES
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Favourites from "./pages/Favourites.jsx";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -113,6 +114,14 @@ function App() {
             element={
               <ProtectedRoutes user={currentUser}>
                 <TvShow />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/favourites"
+            element={
+              <ProtectedRoutes user={currentUser}>
+                <Favourites />
               </ProtectedRoutes>
             }
           />

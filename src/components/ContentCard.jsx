@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 
 
-const MovieCard = ({ prop }) => {
+const ContentCard = ({ prop }) => {
   const title = prop.title ? prop.title : prop.name;
 
   const date = prop.release_date ? prop.release_date : prop.first_air_date;
@@ -45,4 +45,4 @@ const MovieCard = ({ prop }) => {
   );
 };
 
-export default MovieCard;
+export default ContentCard;

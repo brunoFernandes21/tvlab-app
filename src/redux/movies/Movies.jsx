@@ -10,7 +10,7 @@ import {
 } from "./moviesSlice";
 
 // COMPONENTS
-import MovieCard from "../../components/ContentCard";
+import ContentCard from "../../components/ContentCard";
 import Spinner from "../../components/Spinner";
 import SortBy from "../../components/SortBy";
 
@@ -24,7 +24,7 @@ const Movies = () => {
   }, [dispatch]);
 
   const content = movies.map((movie) => (
-    <MovieCard key={movie.id} prop={movie} />
+    <ContentCard key={movie.id} prop={movie} />
   ));
 
   return (

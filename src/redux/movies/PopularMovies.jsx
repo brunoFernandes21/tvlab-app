@@ -22,7 +22,7 @@ import {
 
 //COMPONENTS
 import Spinner from "../../components/Spinner";
-import MovieCard from "../../components/ContentCard";
+import ContentCard from "../../components/ContentCard";
 import SearchBox from "../../components/SearchBox";
 import Pagination from "../../components/Pagination";
 
@@ -97,7 +97,7 @@ const PopularMovies = () => {
       }
     }
     if (searchForm.searchValue && searchForm.type === "movies") {
-      contentType();
+      contentType("movies");
     } else {
       contentType("shows");
     }
@@ -124,7 +124,7 @@ const PopularMovies = () => {
   });
 
   const displayContent = filteredContent.map((movie) => (
-    <MovieCard key={movie.id} prop={movie} />
+    <ContentCard key={movie.id} prop={movie} />
   ));
 
   const showsProps = {
