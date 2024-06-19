@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const initialState = {
   movies: [],
-  initialDataObject: {},//this will contain the returned data from first render
+  initialDataObject: {}, //this will contain the returned data from first render
   search: "",
   totalResults: 1,
   pages: 1,
@@ -20,9 +20,10 @@ const searchMoviesURL = "https://api.themoviedb.org/3/search/movie";
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async ( body, { getState}) => {
-    const state = getState()
-    let currentPage = state.movies.currentPage
+  async (body, { getState }) => {
+    const state = getState();
+
+    let currentPage = state.movies.currentPage;
     if (body) {
       const response = await axios.request({
         method: "GET",
@@ -33,17 +34,16 @@ export const fetchMovies = createAsyncThunk(
         },
       });
       const data = await response.data;
-     
+
       const returnedValue = {
         search: body.searchValue,
         movies: data.results,
         responseObject: data,
       };
-         // TODO: NEED TO CHECK WHY THIS IS NOT RETURNING ONLY DATA CONTAINING SEARCH KEYWORD
-         console.log(returnedValue.movies, "movies return from search");
+      // TODO: NEED TO CHECK WHY THIS IS NOT RETURNING ONLY DATA CONTAINING SEARCH KEYWORD
       return returnedValue;
     } else {
-      let currentPage = state.movies.currentPage
+      let currentPage = state.movies.currentPage;
       const response = await axios.request({
         method: "GET",
         url: `${moviesURL}?page=${currentPage}`,
@@ -56,16 +56,12 @@ export const fetchMovies = createAsyncThunk(
 
       const firstRenderData = {
         renderedMovies: data.results,
-        returnedObject: data
-      }
-   
-      console.log(firstRenderData.renderedMovies, "movie results when first render");
+        returnedObject: data,
+      };
       return firstRenderData;
     }
   }
 );
-
-
 
 /********************************** FETCH MOVIE GENRES *****************************/
 
@@ -129,14 +125,14 @@ export const moviesSlice = createSlice({
       return { ...state, movies: sortedMovies };
     },
     setCurrentPage: (state) => {
-      state.currentPage = 1
+      state.currentPage = 1;
     },
     nextPage: (state) => {
-      state.currentPage += 1
+      state.currentPage += 1;
     },
     previousPage: (state) => {
-      state.currentPage -= 1
-    }
+      state.currentPage -= 1;
+    },
   },
   extraReducers(builder) {
     builder
@@ -151,8 +147,8 @@ export const moviesSlice = createSlice({
           : action.payload.renderedMovies;
         state.movies = [...movies];
 
-        state.initialDataObject = {...action.payload.returnedObject}
-        
+        state.initialDataObject = { ...action.payload.returnedObject };
+
         const title = action.payload.search ? action.payload.search : "";
         state.search = title;
 
@@ -200,7 +196,8 @@ export const moviesSlice = createSlice({
 export const selectStatus = (state) => state.movies.status;
 export const selectError = (state) => state.movies.error;
 export const selectAllMovies = (state) => state.movies.movies;
-export const selectInitialMoviesData = (state) => state.movies.initialDataObject
+export const selectInitialMoviesData = (state) =>
+  state.movies.initialDataObject;
 export const selectPages = (state) => state.movies.pages;
 export const selectCurrentPage = (state) => state.movies.currentPage;
 export const selectTotalResults = (state) => state.movies.totalResults;
@@ -212,6 +209,7 @@ export const selectMovieById = (state, movieId) =>
   state.movies.movies.find((movie) => movie.id === movieId);
 export const selectNowPlayingMovieById = (state, movieId) =>
   state.movies.nowPlayingMovies.find((movie) => movie.id === movieId);
-export const { sortMovies, nextPage, previousPage, setCurrentPage } = moviesSlice.actions;
+export const { sortMovies, nextPage, previousPage, setCurrentPage } =
+  moviesSlice.actions;
 
 export default moviesSlice.reducer;
