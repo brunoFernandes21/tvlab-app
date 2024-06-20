@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { nextPage, previousPage } from "../redux/movies/moviesSlice";
+import { nextPage, previousPage } from "../features/movies/moviesSlice";
 import {
   fetchMovies,
   selectPages,
   selectCurrentPage,
   selectTotalResults,
   selectSearchValue,
-} from "./../redux/movies/moviesSlice";
+} from "./../features/movies/moviesSlice";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 
 const Pagination = ({
@@ -36,7 +36,7 @@ const Pagination = ({
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mx-auto">
       <div className="flex items-center gap-2">
         <button
           type="button"
@@ -56,8 +56,7 @@ const Pagination = ({
             {initialCurrentPage} of {totalPages}
           </p>
         )}
-        {resultDisplay === "movies" &&
-          moviesTotalResults > 0 &&
+        {resultDisplay === "movies" && moviesTotalResults > 0 &&
           movieSearchedValue !== "" && (
             <p className="uppercase text-lg md:text-lx">
               {moviesCurrentPage} of {moviesPages}

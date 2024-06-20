@@ -117,3 +117,66 @@ select {
   z-index: 9;
   transition: all 0.5s ease-in-out;
 }
+/* 753 */
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 480px) {
+  .contentCard {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 480px) {
+  .contentCard {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));;
+  }
+}
+
+@media only screen and (min-width: 576px) {
+  .contentCard {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .contentCard {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .contentCard {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .contentCard {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));;
+  }
+}
+/* @media only screen and (max-width: 480px) {
+  .contentCard {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));;
+  }
+}
+
+@media only screen and (max-width: 753) {
+  .contentCard {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));;
+  }
+} */
+/* 320px — 480px: Mobile devices */
+/* 481px — 768px: iPads, Tablets */
+/* 769px — 1024px: Small screens, laptops */

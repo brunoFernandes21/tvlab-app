@@ -1,6 +1,6 @@
 //COMPONENTS
 import Hero from '../components/Hero'
-import PopularMovies from '../redux/movies/PopularMovies'
+import PopularMovies from '../features/movies/PopularMovies'
 
 const Homepage = () => {
   return (

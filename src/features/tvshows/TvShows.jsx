@@ -34,7 +34,7 @@ const TvShows = () => {
       {showStatus === "loading" && (
         <Spinner text="Loading" loading={showStatus} />
       )}
-      <div className="container m-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 md:mt-8 lg:mt-10 px-2 md:px-6 lg:px-8">
+      <div className="contentCard container m-auto grid gap-4 mt-6 md:mt-8 lg:mt-10 px-2 md:px-6 lg:px-8">
         {showStatus === "succeeded" && content}
         {showStatus === "failed" && (
           <p className="text-xl text-center">Unable to find shows</p>

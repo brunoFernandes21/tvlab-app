@@ -1,7 +1,7 @@
 //REDUX
 import { useDispatch } from "react-redux";
-import { sortMovies } from "../redux/movies/moviesSlice";
-import { sortShows } from "../redux/tvshows/showsSlice";
+import { sortMovies } from "../features/movies/moviesSlice";
+import { sortShows } from "../features/tvshows/showsSlice";
 
 //ICONS
 import { FaCalendarAlt, FaUser, FaStar } from "react-icons/fa";
@@ -10,9 +10,9 @@ import { BiSolidUpvote } from "react-icons/bi";
 const SortBy = ({ source }) => {
   const dispatch = useDispatch();
   return (
-    <section className="w-[300px] md:w-[650px] lg:w-[950px] mx-auto z-10 shadow-xl mb-8 p-2 rounded-lg flex items-center justify-center md:justify-between mt-6 md:mt-8 lg:mt-10">
+    <section className="w-[300px] md:w-[650px] lg:w-[950px] mx-auto z-10 shadow-xl mb-8 p-2 rounded-lg flex items-center justify-center mt-6 md:mt-8 lg:mt-10">
       <p className="hidden md:block text-gray-500 font-bold w-36 md:text-xl">
-        Sort jobs by
+        Sort by
       </p>
       <section className="flex items-center justify-end">
         <button

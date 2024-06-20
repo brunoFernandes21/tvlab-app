@@ -11,6 +11,7 @@ import {
   selectStatus,
   selectSearchValue,
   setCurrentPage,
+  selectCurrentPage,
 } from "./moviesSlice";
 import {
   fetchShows,
@@ -30,7 +31,7 @@ import { toast } from "react-toastify";
 const PopularMovies = () => {
   // //Initial data object
   const initialMoviesObject = useSelector(selectInitialMoviesData);
-  const moviesPerPage = initialMoviesObject.results;
+  const moviesPerPage = initialMoviesObject.results
   const initialResults = initialMoviesObject.total_results;
 
   // Search results
@@ -39,13 +40,16 @@ const PopularMovies = () => {
   const movieStatus = useSelector(selectStatus);
   const movieSearchedValue = useSelector(selectSearchValue);
   const moviesTotalResults = useSelector(selectTotalResults);
+  const moviesCurrentPage = useSelector(selectCurrentPage);
+
+
 
   // shows state selection
   const shows = useSelector(selectAllShows);
   const showsSearchedValue = useSelector(selectShowsSearchValue);
-  const showsPages = useSelector(selectShowsPages);
+  // const showsPages = useSelector(selectShowsPages);
   const showsTotalResults = useSelector(selectShowsTotalResults);
-  const [searchForm, setSearchForm] = useState({ searchValue: "", type: "" });
+  const [searchForm, setSearchForm] = useState({ searchValue: "", type: "movies" });
 
   useEffect(() => {
     dispatch(fetchMovies());
@@ -80,13 +84,24 @@ const PopularMovies = () => {
 
 
   };
+  
+  const content =
+    searchForm.searchValue && searchForm.type === "shows"
+      ? shows
+      : popularMovies;
+
+      // console.log(content.length, "content lentgh");
+
+  // TODO create a global array in state and incremenet it based based on the number of items return by objet in the api call
 
   const searchMoviesAndShows = (event, param) => {
     event.preventDefault();
 
     if (movieSearchedValue !== searchForm.searchValue) {
       dispatch(setCurrentPage());
+      dispatch(setAfterSearchMoviesLength())
     }
+
 
     if (param && searchForm.searchValue === "") {
       dispatch(fetchMovies());
@@ -103,35 +118,20 @@ const PopularMovies = () => {
     }
   };
 
-  const content =
-    searchForm.searchValue && searchForm.type === "shows"
-      ? shows
-      : popularMovies;
+  let resultDisplay;
 
-  let resultDisplay = "";
-  const filteredContent = content.filter((item) => {
-    if (item.name) {
+  content.forEach((item) => {
+    if(item.name){
       resultDisplay = "shows";
-      return item.name
-        .toLowerCase()
-        .includes(searchForm.searchValue.toLocaleLowerCase());
     } else {
       resultDisplay = "movies";
-      return item.title
-        .toLowerCase()
-        .includes(searchForm.searchValue.toLocaleLowerCase());
     }
-  });
+  })
 
-  const displayContent = filteredContent.map((movie) => (
+  const displayContent = content.map((movie) => (
     <ContentCard key={movie.id} prop={movie} />
   ));
 
-  const showsProps = {
-    showsSearchedValue,
-    showsPages,
-    showsTotalResults,
-  };
   return (
     <section className="mt-10 md:mt-16">
       {movieStatus !== "loading" && movieStatus !== "failed" && (
@@ -147,27 +147,31 @@ const PopularMovies = () => {
           searchMovies={searchMoviesAndShows}
         />
       )}
-      <div className="container grid mx-auto px-2 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10">
-        {initialResults && searchForm.searchValue === "" && (
+      <div className="container grid mx-auto px-8 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10">
+        {initialResults && (
+          <div className="flex items-center justify-between">
           <p className="uppercase text-lg md:text-lx lg:text-2xl">
-            {moviesPerPage.length} of {initialResults} total results
+            {initialResults} movies results <br />
+            {/* Page {moviesCurrentPage} {moviesPerPage.length} of {initialResults} total results */}
           </p>
+          <p className="uppercase text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage}</p>
+          </div>
         )}
-        {resultDisplay === "movies" &&
-          moviesTotalResults > 0 &&
+        {resultDisplay === "movies" && moviesTotalResults > 0 &&
           movieSearchedValue !== "" && (
+            <div className="flex items-center justify-between">
             <p className="uppercase text-lg md:text-lx lg:text-2xl">
-              {displayContent.length} of {moviesTotalResults} total results for{" "}
-              {movieSearchedValue}
+              {moviesTotalResults} total results for{" "} {movieSearchedValue} <br />
+              {/* {displayContent.length} of {moviesTotalResults} total results for{" "} */}
             </p>
+            <p className="uppercase text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage} </p>
+            </div>
           )}
-        {resultDisplay === "shows" &&
-          showsTotalResults > 0 &&
+        {resultDisplay === "shows" && showsTotalResults > 0 &&
           showsSearchedValue !== "" && (
-            <p className="font-bold text-lg md:text-lx lg:text-2xl">
+            <p className="uppercase text-lg md:text-lx lg:text-2xl">
               {displayContent.length} results of {showsTotalResults} for{" "}
-              {showsSearchedValue.charAt(0).toUpperCase() +
-                showsSearchedValue.slice(1)}
+              {showsSearchedValue}
             </p>
           )}
         {}
@@ -175,7 +179,8 @@ const PopularMovies = () => {
       {movieStatus === "loading" && (
         <Spinner text="Loading" loading={movieStatus} />
       )}
-      <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto px-2 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10 rounded-lg ">
+      {/* grid-cols-1 md:grid-cols-3 */}
+      <div className="contentCard container gap-4 mx-auto px-8 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10 rounded-lg ">
         {displayContent.length > 0 && displayContent}
       </div>
       {displayContent.length === 0 && searchForm.type === "" && (

@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 // REDUX
-import Movies from "./redux/movies/Movies";
-import MovieSinglePage from "./redux/movies/MovieSinglePage";
-import ShowSinglePage from "./redux/tvshows/ShowSinglePage";
-import TvShow from "./redux/tvshows/TvShows";
+import Movies from "./features/movies/Movies";
+import MovieSinglePage from "./features/movies/MovieSinglePage";
+import ShowSinglePage from "./features/tvshows/ShowSinglePage";
+import TvShow from "./features/tvshows/TvShows";
 
 //FIREBASE
 import { auth } from "./firebase/firebase.js";

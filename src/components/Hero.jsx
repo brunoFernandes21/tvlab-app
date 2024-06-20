@@ -7,7 +7,7 @@ import {
   fetchNowPlayingMovies,
   selectAllNowPlayingMovies,
   selectStatus,
-} from "../redux/movies/moviesSlice";
+} from "../features/movies/moviesSlice";
 
 //SWIPER PACKAGE
 import { register } from "swiper/element/bundle";
@@ -52,13 +52,9 @@ const Hero = () => {
             pagination="false"
             draggable="true"
             autoplay-delay="3000"
-            // height="1184"
-            // width="1184"
-            //   className="flex pb-4 md:py-6"
-            //   autoplay
             breakpoints={JSON.stringify({
-              640: {
-                slidesPerView: 1,
+              480: {
+                slidesPerView: 2,
                 // spaceBetween: 10,
               },
 
@@ -66,8 +62,11 @@ const Hero = () => {
                 slidesPerView: 3,
                 // spaceBetween: 10,
               },
+              // 992: {
+              //   slidesPerView: 3,
+              // },
 
-              1574: {
+              1200: {
                 slidesPerView: 5,
                 // spaceBetween: 20,
               },

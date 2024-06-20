@@ -11,13 +11,13 @@ import {
 import { setDoc, doc } from "firebase/firestore";
 
 //  REGISTRATION LOGIC
-export const validatePassword = (
-  password,
-  confirmPassword,
+export const passwordMatch = (
+  passwordOne,
+  passwordTwo,
   setPasswordError
 ) => {
   let isValid = true;
-  if (password !== confirmPassword) {
+  if (passwordOne !== passwordTwo) {
     isValid = false;
     setTimeout(() => {
       setPasswordError(null);
@@ -89,7 +89,7 @@ export const userRegistration = async (
       navigate("/");
     }
   } catch (error) {
-    setDbError("Password should be at least 6 characters");
+    setDbError(error.message);
     setLoading(false);
     setTimeout(() => {
       setDbError(null);

@@ -21,7 +21,7 @@ const SearchBox = ({
   };
 
   return (
-    <div className="max-w-2xl w-full md:w-[450px] mx-auto px-2 md:px-6 lg:px-8">
+    <div className="max-w-2xl w-full md:w-[450px] mx-auto px-8 md:px-6 lg:px-8">
       <div className="flex items-center gap-8 justify-center md:justify-start">
         <div className="flex items-center gap-2">
           <label htmlFor="movies" className="text-lg">
@@ -75,7 +75,7 @@ const SearchBox = ({
           {searchForm.searchValue && (
             <IoMdCloseCircle
               className="absolute cursor-pointer -mt-14 right-4 text-xl text-orange-500 "
-              onClick={() => setSearchForm({ searchValue: "", type: "" })}
+              onClick={() => setSearchForm({ searchValue: "", type: "movies" })}
             />
           )}
           <button

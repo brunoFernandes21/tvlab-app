@@ -145,8 +145,9 @@ export const moviesSlice = createSlice({
         const movies = action.payload.movies
           ? action.payload.movies
           : action.payload.renderedMovies;
-        state.movies = [...movies];
 
+
+        state.movies = [...movies];
         state.initialDataObject = { ...action.payload.returnedObject };
 
         const title = action.payload.search ? action.payload.search : "";
@@ -209,7 +210,7 @@ export const selectMovieById = (state, movieId) =>
   state.movies.movies.find((movie) => movie.id === movieId);
 export const selectNowPlayingMovieById = (state, movieId) =>
   state.movies.nowPlayingMovies.find((movie) => movie.id === movieId);
-export const { sortMovies, nextPage, previousPage, setCurrentPage } =
+export const { sortMovies, nextPage, previousPage, setCurrentPage} =
   moviesSlice.actions;
 
 export default moviesSlice.reducer;

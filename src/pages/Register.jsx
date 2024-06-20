@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 //UTILS
-import { userRegistration, googleRegistration, validatePassword } from "../utils/userAuth.js";
+import { userRegistration, googleRegistration, passwordMatch } from "../utils/userAuth.js";
 
 //ICONS
 import { FcGoogle } from "react-icons/fc";
@@ -42,7 +42,7 @@ const Register = ({ setCurrentUser }) => {
   // TODO: CREATE A UTILS FOLDER TO DO ALL THE AUTH CALLS
   const handleSubmit = (event) => {
     event.preventDefault()
-    if(validatePassword(formData.password, formData.confirmPassword, setPasswordError)){
+    if(passwordMatch(formData.password, formData.confirmPassword, setPasswordError)){
       userRegistration(formData.username, formData.email, formData.password, setLoading, setDbError, setCurrentUser, navigate)
     }
   };

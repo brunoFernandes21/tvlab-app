@@ -1,59 +1,56 @@
+// REACT
 import { useEffect } from "react";
+
+// REACT DOM
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchGenres,selectGenres, selectShowById, selectStatus } from "./showsSlice";
-import Spinner from "../../components/Spinner";
-import {
-  FaArrowCircleLeft,
-  FaStar,
-} from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const ShowSinglePage = () => {
-  const { showId } = useParams();
-  const show = useSelector((state) => selectShowById(state, Number(showId)));
-  const dispatch = useDispatch();
+// REDUX
+import { useSelector, useDispatch } from "react-redux";
+import {
+  // fetchMovieById,
+  fetchGenres,
+  selectMovieById,
+  selectNowPlayingMovieById,
+  selectStatus,
+  selectGenres,
+} from "./moviesSlice";
+
+// COMPONENTS
+import Spinner from "../../components/Spinner";
+
+// ICONS
+import { FaArrowCircleLeft, FaStar } from "react-icons/fa";
+
+const MovieSinglePage = () => {
+  const { movieId } = useParams();
+  const movie = useSelector((state) => selectMovieById(state, Number(movieId)));
+  const NowPlayingMovie = useSelector((state) =>
+    selectNowPlayingMovieById(state, Number(movieId))
+  );
   const genres = useSelector(selectGenres);
-  const showGenres = show.genre_ids;
-  const ShowStatus = useSelector(selectStatus);
+  const movieStatus = useSelector(selectStatus);
+  //if movie is not found in the movies array, find it in the nowPlayingMovies array and use it instead
+  const singleMovie = movie ? movie : NowPlayingMovie;
+  const dispatch = useDispatch();
+  const movieGenres = singleMovie.genre_ids;
+
   useEffect(() => {
-    dispatch(fetchGenres(showGenres));
-  }, [dispatch, showGenres]);
+    //MODIFY THIS TO FETCH SINGLE MOVIE BASED ON ID
+    dispatch(fetchGenres(movieGenres));
+    // dispatch(fetchMovies());
+  }, [dispatch, movieGenres]);
 
-  // if (!show) {
-  //   return (
-  //     <section className="flex items-center justify-center p-16 bg-black">
-  //       <div className="flex flex-col text-center gap-6 max-w-md">
-  //         <FaExclamationTriangle className="text-yellow-400 text-6xl mx-auto" />
-
-  //         <h2 className="font-extrabold text-9xl text-slate-700 dark:text-gray-100">
-  //           404
-  //         </h2>
-  //         <p className="text-2xl md:text-3xl dark:text-gray-300">
-  //           Sorry, we couldn&apos;t find show.
-  //         </p>
-  //         <Link
-  //           to="/"
-  //           className="px-8 py-4 text-xl font-semibold rounded-xl bg-sky-600 text-white hover:bg-sky-700"
-  //         >
-  //           Back to home
-  //         </Link>
-  //       </div>
-  //     </section>
-  //   );
-  // }
-
-  const backdropUrl = show.backdrop_path
-    ? `https://image.tmdb.org/t/p/w500${show.backdrop_path}`
-    : `https://image.tmdb.org/t/p/w500${show.poster_path}`;
-
-  const posterUrl = show.poster_path
-    ? `https://image.tmdb.org/t/p/w500${show.poster_path}`
+  const backdropUrl = singleMovie.backdrop_path
+    ? `https://image.tmdb.org/t/p/w500${singleMovie.backdrop_path}`
+    : `https://image.tmdb.org/t/p/w500${singleMovie.poster_path}`;
+  const posterUrl = singleMovie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${singleMovie.poster_path}`
     : "/poster.jpeg";
   return (
     <section>
-      {ShowStatus === "loading" && <Spinner />}
-      {ShowStatus === "succeeded" && (
+      {movieStatus === "loading" && <Spinner />}
+      {movieStatus === "succeeded" && (
         <div
           style={{
             backgroundImage: `url(${backdropUrl})`,
@@ -66,14 +63,14 @@ const ShowSinglePage = () => {
           <div className=" bg-black bg-opacity-70">
             <section className="py-6 px-6">
               <Link
-                to="/tv-shows"
+                to="/movies"
                 className="text-gray-400 md:text-lg lg:text-xl hover:text-gray-200 flex items-center "
               >
                 <FaArrowCircleLeft className="mr-2" />
-                Back to Shows
+                Back to Movies
               </Link>
             </section>
-            <div className="py-10 md:py-20 px-2 md:px-6 lg:px-8 grid grid-col-1 gap-4 md:grid-cols-2">
+            <div className=" py-10 md:py-20 px-2 md:px-6 lg:px-8 grid grid-col-1 gap-4 md:grid-cols-2">
               <div className="w-[250px] mx-auto lg:w-[350px]">
                 <img
                   src={posterUrl}
@@ -85,23 +82,25 @@ const ShowSinglePage = () => {
               </div>
               <div className="mt-6">
                 <h1 className="text-xl lg:text-5xl uppercase font-bold mb-8">
-                  {show.name}
+                  {singleMovie.title}
                 </h1>
+
                 <p className="flex items-center gap-2 text-sm md:text-lg font-extralight mt-2">
                   <span className=" font-bold">Rating:</span>
                   <FaStar className="text-yellow-400" />
-                  <span>{show.vote_average.toFixed()} / 10</span>
+                  <span>{singleMovie.vote_average.toFixed()} / 10</span>
+                </p>
+                <p className="text-sm md:text-lg font-extralight mt-2">
+                  <span className=" font-bold">Vote:</span>{" "}
+                  {singleMovie.vote_count}
                 </p>
 
-                <p className="text-sm md:text-lg font-extralight mt-2">
-                  <span className=" font-bold">Vote:</span> {show.vote_count}
-                </p>
-                {show.adult === false && (
+                {singleMovie.adult === false && (
                   <p className="text-sm md:text-lg font-extralight mt-2">
                     <span className=" font-bold">Adult:</span> No
                   </p>
                 )}
-                {show.adult === true && (
+                {singleMovie.adult === true && (
                   <p className="text-sm md:text-lg font-extralight mt-2">
                     <span className=" font-bold">Adult</span>: Yes
                   </p>
@@ -112,30 +111,36 @@ const ShowSinglePage = () => {
                   </p>
                   <ul className="flex items-center gap-2">
                     {genres.map((genre) => (
-                      <li className="text-sm md:text-lg font-extralight" key={genre.id}>{genre.name}</li>
+                      <li
+                        className="text-sm md:text-lg font-extralight"
+                        key={genre.id}
+                      >
+                        {genre.name}
+                      </li>
                     ))}
                   </ul>
                 </div>
+
                 <p className="text-sm md:text-lg font-extralight mt-2">
                   {" "}
                   <span className=" font-bold">Release Date:</span>{" "}
-                  {show.first_air_date}
+                  {singleMovie.release_date}
                 </p>
                 <p className="text-sm md:text-lg font-extralight mt-2">
                   {" "}
                   <span className=" font-bold">Overview:</span>{" "}
-                  {show.overview ? show.overview : "No overview available."}
+                  {singleMovie.overview}
                 </p>
               </div>
             </div>
           </div>
         </div>
       )}
-      {ShowStatus === "failed" && (
-        <p className="text-white text-center text-xl">Unable to find show</p>
+      {movieStatus === "failed" && (
+        <p className="text-white text-center text-xl">Unable to find movie</p>
       )}
     </section>
   );
 };
 
-export default ShowSinglePage;
+export default MovieSinglePage;
