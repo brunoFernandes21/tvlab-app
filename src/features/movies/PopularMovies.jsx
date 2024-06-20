@@ -53,8 +53,9 @@ const PopularMovies = () => {
 
   useEffect(() => {
     dispatch(fetchMovies());
+    dispatch(fetchShows());
   }, [dispatch]);
-
+  
   const handleChange = (event) => {
     const { value, type, name, checked } = event.target;
     setSearchForm((prevState) => {
@@ -81,27 +82,16 @@ const PopularMovies = () => {
         type: searchForm.type,
       })
     );
-
-
   };
   
-  const content =
-    searchForm.searchValue && searchForm.type === "shows"
-      ? shows
-      : popularMovies;
-
-      // console.log(content.length, "content lentgh");
-
-  // TODO create a global array in state and incremenet it based based on the number of items return by objet in the api call
+  const content = searchForm.type === "shows" ? shows : popularMovies;
 
   const searchMoviesAndShows = (event, param) => {
     event.preventDefault();
 
     if (movieSearchedValue !== searchForm.searchValue) {
       dispatch(setCurrentPage());
-      dispatch(setAfterSearchMoviesLength())
     }
-
 
     if (param && searchForm.searchValue === "") {
       dispatch(fetchMovies());
@@ -148,31 +138,34 @@ const PopularMovies = () => {
         />
       )}
       <div className="container grid mx-auto px-8 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10">
-        {initialResults && (
+        {initialResults && searchForm.type === "movies" && (
           <div className="flex items-center justify-between">
-          <p className="uppercase text-lg md:text-lx lg:text-2xl">
-            {initialResults} movies results <br />
+          <p className="capitalized text-lg md:text-lx lg:text-2xl">
+            {initialResults} Movies results <br />
             {/* Page {moviesCurrentPage} {moviesPerPage.length} of {initialResults} total results */}
           </p>
-          <p className="uppercase text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage}</p>
+          <p className="capitalized text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage}</p>
           </div>
         )}
         {resultDisplay === "movies" && moviesTotalResults > 0 &&
           movieSearchedValue !== "" && (
             <div className="flex items-center justify-between">
-            <p className="uppercase text-lg md:text-lx lg:text-2xl">
-              {moviesTotalResults} total results for{" "} {movieSearchedValue} <br />
+            <p className="text-lg md:text-lx lg:text-2xl">
+              {moviesTotalResults} Total results for{" "} {movieSearchedValue} <br />
               {/* {displayContent.length} of {moviesTotalResults} total results for{" "} */}
             </p>
-            <p className="uppercase text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage} </p>
+            <p className="capitalized text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage} </p>
             </div>
           )}
         {resultDisplay === "shows" && showsTotalResults > 0 &&
           showsSearchedValue !== "" && (
-            <p className="uppercase text-lg md:text-lx lg:text-2xl">
-              {displayContent.length} results of {showsTotalResults} for{" "}
+            <div className="flex items-center justify-between">
+            <p className="capitalized text-lg md:text-lx lg:text-2xl">
+              {showsTotalResults} Total results for{" "}
               {showsSearchedValue}
             </p>
+            {/* <p className="capitalized text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage} </p> */}
+            </div>
           )}
         {}
       </div>
@@ -181,7 +174,8 @@ const PopularMovies = () => {
       )}
       {/* grid-cols-1 md:grid-cols-3 */}
       <div className="contentCard container gap-4 mx-auto px-8 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10 rounded-lg ">
-        {displayContent.length > 0 && displayContent}
+        {/* {displayContent.length > 0 && displayContent} */}
+        {displayContent}
       </div>
       {displayContent.length === 0 && searchForm.type === "" && (
         <p className="text-xl mx-auto text-center">
@@ -189,8 +183,8 @@ const PopularMovies = () => {
           API
         </p>
       )}
-      <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto px-2 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10">
-        {displayContent.length > 0 && (
+      <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto px-2 md:px-4 mt-6 md:mt-8 lg:mt-10">
+        {displayContent.length > 0 && searchForm.type === "movies" && (
           <Pagination
             initialMoviesObject={initialMoviesObject}
             resultDisplay={resultDisplay}

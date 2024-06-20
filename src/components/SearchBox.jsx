@@ -75,7 +75,7 @@ const SearchBox = ({
           {searchForm.searchValue && (
             <IoMdCloseCircle
               className="absolute cursor-pointer -mt-14 right-4 text-xl text-orange-500 "
-              onClick={() => setSearchForm({ searchValue: "", type: "movies" })}
+              onClick={() => setSearchForm((prev)=>{return{...prev, searchValue: "" }})}
             />
           )}
           <button

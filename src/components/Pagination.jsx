@@ -62,6 +62,7 @@ const Pagination = ({
               {moviesCurrentPage} of {moviesPages}
             </p>
           )}
+   
         <button
           type="button"
           onClick={(event) => handlePageChange(event, "next")}

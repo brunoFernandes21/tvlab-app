@@ -17,7 +17,7 @@ const LandingPage = () => {
           </p>
         </div>
         <div className="max-w-xl border-8 rounded-lg mt-8 md:mt-10 p-4 md:p-8 mx-auto flex flex-col items-center justify-center text-center gap-3 border-x-red-500 border-y-yellow-500">
-            <p className="md:text-xl">Create an account below to checkout what everyone is watching.</p>
+            <p className="md:text-xl">Create an account below to check out what everyone is watching.</p>
             <Link to="/register" className="block px-6 py-2 md:px-10 md:py-3 rounded-md bg-transparent bg-gradient-to-r from-pink-500 to-yellow-500 md:text-lg">Create account</Link>
         </div>
       </section>

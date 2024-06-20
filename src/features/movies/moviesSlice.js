@@ -117,6 +117,7 @@ export const moviesSlice = createSlice({
       const payload = action.payload;
       const sortedMovies = [...state.movies].sort((a, b) => {
         if (payload === "title") {
+          console.log("sorted function");
           return a[payload] > b[payload] ? 0 : -1;
         } else {
           return a[payload] > b[payload] ? -1 : 0;
