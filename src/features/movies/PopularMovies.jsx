@@ -31,7 +31,7 @@ import { toast } from "react-toastify";
 const PopularMovies = () => {
   // //Initial data object
   const initialMoviesObject = useSelector(selectInitialMoviesData);
-  const moviesPerPage = initialMoviesObject.results
+  const moviesPerPage = initialMoviesObject.results;
   const initialResults = initialMoviesObject.total_results;
 
   // Search results
@@ -42,20 +42,21 @@ const PopularMovies = () => {
   const moviesTotalResults = useSelector(selectTotalResults);
   const moviesCurrentPage = useSelector(selectCurrentPage);
 
-
-
   // shows state selection
   const shows = useSelector(selectAllShows);
   const showsSearchedValue = useSelector(selectShowsSearchValue);
   // const showsPages = useSelector(selectShowsPages);
   const showsTotalResults = useSelector(selectShowsTotalResults);
-  const [searchForm, setSearchForm] = useState({ searchValue: "", type: "movies" });
+  const [searchForm, setSearchForm] = useState({
+    searchValue: "",
+    type: "movies",
+  });
 
   useEffect(() => {
     dispatch(fetchMovies());
     dispatch(fetchShows());
   }, [dispatch]);
-  
+
   const handleChange = (event) => {
     const { value, type, name, checked } = event.target;
     setSearchForm((prevState) => {
@@ -74,7 +75,7 @@ const PopularMovies = () => {
           type: searchForm.type,
         })
       );
-      return
+      return;
     }
     dispatch(
       fetchMovies({
@@ -83,7 +84,7 @@ const PopularMovies = () => {
       })
     );
   };
-  
+
   const content = searchForm.type === "shows" ? shows : popularMovies;
 
   const searchMoviesAndShows = (event, param) => {
@@ -111,12 +112,12 @@ const PopularMovies = () => {
   let resultDisplay;
 
   content.forEach((item) => {
-    if(item.name){
+    if (item.name) {
       resultDisplay = "shows";
     } else {
       resultDisplay = "movies";
     }
-  })
+  });
 
   const displayContent = content.map((movie) => (
     <ContentCard key={movie.id} prop={movie} />
@@ -125,11 +126,6 @@ const PopularMovies = () => {
   return (
     <section className="mt-10 md:mt-16">
       {movieStatus !== "loading" && movieStatus !== "failed" && (
-        <h1 className="text-xl md:text-4xl lg:text-5xl font-bold text-center mb-6 md:mb-8 lg:mb-10">
-          Popular Movies
-        </h1>
-      )}
-      {movieStatus !== "loading" && movieStatus !== "failed" && (
         <SearchBox
           searchForm={searchForm}
           setSearchForm={setSearchForm}
@@ -137,34 +133,48 @@ const PopularMovies = () => {
           searchMovies={searchMoviesAndShows}
         />
       )}
+
+      {movieStatus !== "loading" && movieStatus !== "failed" && (
+        <h1 className="text-xl md:text-4xl lg:text-5xl font-bold text-center mt-6 md:mt-10 lg:mt-20">
+          Popular{" "}
+          {searchForm.type.charAt(0).toUpperCase() + searchForm.type.slice(1)}
+        </h1>
+      )}
       <div className="container grid mx-auto px-8 md:px-6 lg:px-8 mt-6 md:mt-8 lg:mt-10">
-        {initialResults && searchForm.type === "movies" && (
+        {/* {initialResults && searchForm.type === "movies" && (
           <div className="flex items-center justify-between">
-          <p className="capitalized text-lg md:text-lx lg:text-2xl">
-            {initialResults} Movies results <br />
-            {/* Page {moviesCurrentPage} {moviesPerPage.length} of {initialResults} total results */}
-          </p>
-          <p className="capitalized text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage}</p>
+            <p className="capitalized text-lg md:text-lx lg:text-2xl">
+              {initialResults} Movies results <br />
+              Page {moviesCurrentPage} {moviesPerPage.length} of {initialResults} total results
+            </p>
+            <p className="capitalized text-lg md:text-lx lg:text-2xl">
+              Page {moviesCurrentPage}
+            </p>
           </div>
-        )}
-        {resultDisplay === "movies" && moviesTotalResults > 0 &&
+        )} */}
+
+        {resultDisplay === "movies" &&
+          moviesTotalResults > 0 &&
           movieSearchedValue !== "" && (
             <div className="flex items-center justify-between">
-            <p className="text-lg md:text-lx lg:text-2xl">
-              {moviesTotalResults} Total results for{" "} {movieSearchedValue} <br />
-              {/* {displayContent.length} of {moviesTotalResults} total results for{" "} */}
-            </p>
-            <p className="capitalized text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage} </p>
+              <p className="text-lg md:text-lx lg:text-2xl">
+                {moviesTotalResults} Total results for {movieSearchedValue}{" "}
+                <br />
+                {/* {displayContent.length} of {moviesTotalResults} total results for{" "} */}
+              </p>
+              <p className="capitalized text-lg md:text-lx lg:text-2xl">
+                Page {moviesCurrentPage}{" "}
+              </p>
             </div>
           )}
-        {resultDisplay === "shows" && showsTotalResults > 0 &&
+        {resultDisplay === "shows" &&
+          showsTotalResults > 0 &&
           showsSearchedValue !== "" && (
             <div className="flex items-center justify-between">
-            <p className="capitalized text-lg md:text-lx lg:text-2xl">
-              {showsTotalResults} Total results for{" "}
-              {showsSearchedValue}
-            </p>
-            {/* <p className="capitalized text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage} </p> */}
+              <p className="capitalized text-lg md:text-lx lg:text-2xl">
+                {showsTotalResults} Total results for {showsSearchedValue}
+              </p>
+              {/* <p className="capitalized text-lg md:text-lx lg:text-2xl">Page {moviesCurrentPage} </p> */}
             </div>
           )}
         {}
@@ -184,13 +194,13 @@ const PopularMovies = () => {
         </p>
       )}
       <div className="container grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto px-2 md:px-4 mt-6 md:mt-8 lg:mt-10">
-        {displayContent.length > 0 && searchForm.type === "movies" && (
+        {/* {displayContent.length > 0 && searchForm.type === "movies" && (
           <Pagination
             initialMoviesObject={initialMoviesObject}
             resultDisplay={resultDisplay}
             pageChange={searchMoviesAndShows}
           />
-        )}
+        )} */}
         {showsSearchedValue &&
           searchForm.type === "shows" &&
           displayContent.length === 0 && (
